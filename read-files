@@ -1,0 +1,27 @@
+#!/bin/bash
+
+FILES=(.bashrc .ctags .gitconfig .vimrc config init.vim)
+PATHS=(~/.bashrc ~/.ctags ~/.gitconfig ~/.vimrc ~/.config/i3/config ~/.config/nvim/init.vim)
+COUNT=$((${#FILES[@]} - 1))
+NORMAL_COLOR=$(tput sgr0)
+
+for i in $(seq 0 $COUNT)
+do
+  FILE=${FILES[i]}
+  FPATH=${PATHS[i]}
+  printf "*********************************************"
+  printf "${NORMAL_COLOR}\nComparing $FILE and $FPATH\n"
+  VIM_DIFF=$(git diff --color -U0 $FILE $FPATH)
+  if [ -n "$VIM_DIFF" ]
+  then
+    printf "${NORMAL_COLOR}\n$VIM_DIFF\n"
+    printf "\nGit?(y/n)\n"
+    read ANSWER
+    if [ "$ANSWER" == "y" ]
+    then
+      cp $FPATH $FILE
+    fi
+  else
+    printf "${NORMAL_COLOR}\nUp to date\n"
+  fi
+done

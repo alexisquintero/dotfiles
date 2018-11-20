@@ -1,0 +1,11 @@
+[alias]
+	co = checkout
+	br = branch
+	s = status
+	c = commit
+	l = log
+	f = fetch
+	gud = commit --amend --no-edit
+[user]
+	email = alexis_quintero@hotmail.com.ar
+	name = Alexis Quintero
