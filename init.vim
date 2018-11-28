@@ -58,6 +58,7 @@ nnoremap @ :x<CR>
 nnoremap N Nzzzv
 nnoremap Q @
 nnoremap Y y$
+nnoremap / /\v
 nnoremap ]l :try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>lfirst<bar>endtry<cr>
 nnoremap ]h :try<bar>lprev<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>llast<bar>endtry<cr>
 nnoremap gb :ls<CR>:b<Space>
@@ -65,11 +66,13 @@ nnoremap j gj
 nnoremap k gk
 nnoremap n nzzzv
 nnoremap s :Vexplore
+
 inoremap <C-b> <CR>
 inoremap <C-e> <ESC>%%a
 
 cnoremap <C-o> <CR>
 
+vnoremap / /\v
 
 map <leader>+ :!ctags -R -f ./.git/tags .<CR>
 
