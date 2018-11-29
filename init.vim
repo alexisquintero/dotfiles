@@ -8,6 +8,7 @@ set cursorline
 set directory=~/.config/nvim/private/dir//
 set expandtab
 set fileencoding=utf-8
+set foldlevelstart=1
 set hidden
 set ignorecase
 set list listchars=tab:>-,trail:·
