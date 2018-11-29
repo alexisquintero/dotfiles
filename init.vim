@@ -17,7 +17,6 @@ set number
 set omnifunc=syntaxcomplete#Complete
 set relativenumber
 set ruler
-set scrollbind
 set scrolloff=5
 set shiftwidth=2
 set showcmd
