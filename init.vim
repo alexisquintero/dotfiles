@@ -2,8 +2,11 @@ filetype plugin on
 
 silent !mkdir -p ~/.config/nvim/private/backup
 
-set backup
-set backupdir=~/.config/nvim/private/backup//
+filetype plugin on
+
+set autoread
+set nobackup
+"set backupdir=~/.config/nvim/private/backup//
 set cursorline
 set directory=~/.config/nvim/private/dir//
 set expandtab
@@ -27,10 +30,11 @@ set splitright
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 set termguicolors
 set undodir=~/.config/nvim/private/undo//
-set undodir=~/.vim/backups
 set undofile
 set updatetime=100
 set wildmode=list:longest
+
+au FocusGained * :checktime
 
 let mapleader = "\<Space>"
 
@@ -78,7 +82,6 @@ map <leader>+ :!ctags -R -f ./.git/tags .<CR>
 
 " = VIM PLUG
 call plug#begin('~/.local/share/nvim/plugged')
-"Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins'}
 Plug 'roxma/nvim-yarp'
 Plug 'neomake/neomake'
 Plug 'vim-airline/vim-airline'
@@ -89,7 +92,9 @@ Plug 'https://github.com/kien/ctrlp.vim.git'
 Plug 'airblade/vim-gitgutter'
 Plug 'joshdick/onedark.vim'
 Plug 'airblade/vim-rooter'
-"Code completion with Deoplete - enabled by ensime
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
+Plug 'gre/play2vim', { 'for': 'scala' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 let g:deoplete#enable_at_startup = 1
@@ -157,21 +162,6 @@ map <Leader>s :Ranger<CR>
 
 set runtimepath^=~/.local/share/nvim/plugged
 
-"" Ensime related
-"let maplocalleader = "\<Space>"
-"au FileType scala nnoremap <localleader>t :EnType<CR>
-"au FileType scala nnoremap <localleader>d :EnDeclaration<CR>
-"au FileType scala nnoremap <localleader>? :EnTypeCheck<CR>
-"au FileType scala nnoremap <localleader>s :EnSearch
-"au FileType scala nnoremap <localleader>a :EnSuggestImport<CR>
-"""nnoremap <localleader>9 :EnDebugContinue<CR>
-"""nnoremap <localleader>0 :EnDebugBacktrace<CR>
-"""nnoremap <localleader>_ :EnDebugClearBreaks
-"""nnoremap <localleader>8 :EnDebugClearBreaks
-"""nnoremap <localleader> :EnDebugSetBreak<CR>
-"let ensime_server_v2=1
-"autocmd InsertLeave,TextChanged,BufWritePost *.scala silent :EnTypeCheck
-
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let g:airline_theme='onedark'
 colorscheme onedark
@@ -190,6 +180,7 @@ let g:neomake_fsc_maker = {
   \ }
 
 let g:neomake_scala_enabled_makers = ['fsc']
+let g:neomake_javascript_enabled_makers = ['eslint']
 autocmd InsertLeave,TextChanged * update | Neomake
 
 function! GetBufferList()
@@ -220,3 +211,8 @@ function! WipeMatchingBuffers(pattern)
 endfunction
 
 command! -nargs=1 BW call WipeMatchingBuffers('<args>')
+
+let g:rainbow#max_level = 16
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+
+let g:scala_scaladoc_indent = 1
