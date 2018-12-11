@@ -45,6 +45,7 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+nnoremap <C-p> :Files<CR>
 nnoremap <C-t> <C-t>zz
 nnoremap <C-y> 5<C-y>
 nnoremap <Leader>* :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -86,17 +87,17 @@ Plug 'roxma/nvim-yarp'
 Plug 'neomake/neomake'
 Plug 'vim-airline/vim-airline'
 Plug 'https://github.com/yuttie/comfortable-motion.vim.git'
-Plug 'https://github.com/tpope/vim-fugitive.git'
 Plug 'francoiscabrol/ranger.vim'
-Plug 'https://github.com/kien/ctrlp.vim.git'
 Plug 'airblade/vim-gitgutter'
 Plug 'joshdick/onedark.vim'
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'gre/play2vim', { 'for': 'scala' }
+Plug 'lambdalisue/gina.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
 let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
@@ -114,20 +115,6 @@ let g:netrw_winsize = 25
 let g:netrw_liststyle = 3
 let g:netrw_altv = 1
 let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
-
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-
-"autocmd InsertLeave,TextChanged * update | Neomake! sbt
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='dark'
@@ -216,3 +203,5 @@ let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 let g:scala_scaladoc_indent = 1
+
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
