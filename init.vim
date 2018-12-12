@@ -71,11 +71,15 @@ nnoremap j gj
 nnoremap k gk
 nnoremap n nzzzv
 nnoremap s :Vexplore
+nnoremap :g/ :g/\v
+nnoremap :g// :g//
 
 inoremap <C-b> <CR>
 inoremap <C-e> <ESC>%%a
 
 cnoremap <C-o> <CR>
+cnoremap %s/ %smagic/
+cnoremap \>s/ \>smagic/
 
 vnoremap / /\v
 
@@ -205,3 +209,5 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 let g:scala_scaladoc_indent = 1
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
