@@ -1,12 +1,7 @@
 filetype plugin on
 
-silent !mkdir -p ~/.config/nvim/private/backup
-
-filetype plugin on
-
 set autoread
 set nobackup
-"set backupdir=~/.config/nvim/private/backup//
 set cursorline
 set directory=~/.config/nvim/private/dir//
 set expandtab
@@ -48,6 +43,7 @@ nnoremap <C-l> <C-w>l
 nnoremap <C-p> :Files<CR>
 nnoremap <C-t> <C-t>zz
 nnoremap <C-y> 5<C-y>
+nnoremap <M-p> :Ag<CR>
 nnoremap <Leader>* :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nnoremap <SPACE> <Nop>
 nnoremap <leader>F :let @+=@%<CR>
@@ -66,7 +62,7 @@ nnoremap Y y$
 nnoremap / /\v
 nnoremap ]l :try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>lfirst<bar>endtry<cr>
 nnoremap ]h :try<bar>lprev<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>llast<bar>endtry<cr>
-nnoremap gb :ls<CR>:b<Space>
+nnoremap gb :Buffers<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap n nzzzv
@@ -101,6 +97,10 @@ Plug 'gre/play2vim', { 'for': 'scala' }
 Plug 'lambdalisue/gina.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'markonm/traces.vim'
+Plug 'ap/vim-css-color'
+Plug 'machakann/vim-sandwich'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
@@ -145,7 +145,7 @@ let g:airline_mode_map = {
 let g:airline#extensions#tabline#buffers_label = 'b'
 let g:airline#extensions#tabline#tabs_label = 't'
 set noshowmode
-let g:airline_extensions = ['ctrlp', 'whitespace', 'neomake']
+let g:airline_extensions = ['whitespace', 'neomake']
 
 let g:ranger_map_keys = 0
 let g:ranger_replace_netrw = 1
@@ -207,6 +207,7 @@ let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 let g:scala_scaladoc_indent = 1
+au BufRead,BufNewFile *.sbt set filetype=scala
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 command! -bang -nargs=? -complete=dir Files
