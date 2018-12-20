@@ -101,6 +101,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'markonm/traces.vim'
 Plug 'ap/vim-css-color'
 Plug 'machakann/vim-sandwich'
+Plug 'tommcdo/vim-lion'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
