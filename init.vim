@@ -203,6 +203,7 @@ endfunction
 
 command! -nargs=1 BW call WipeMatchingBuffers('<args>')
 
+let g:rainbow_active = 1
 let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
