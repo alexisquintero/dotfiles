@@ -54,6 +54,8 @@ nnoremap <leader>j <C-W>T
 nnoremap <leader>j i<CR><ESC>
 nnoremap <leader>l gt
 nnoremap <leader>p cw<C-r>0<ESC>
+nnoremap <leader>q :ptjump <C-r><C-w><CR>
+nnoremap <leader>Q :pclose<CR>
 nnoremap <silent><C-n> :noh<CR>
 nnoremap @ :x<CR>
 nnoremap N Nzzzv
@@ -66,7 +68,7 @@ nnoremap gb :Buffers<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap n nzzzv
-nnoremap s :Vexplore
+nnoremap s :Vexplore<CR>
 nnoremap :g/ :g/\v
 nnoremap :g// :g//
 
@@ -102,6 +104,7 @@ Plug 'markonm/traces.vim'
 Plug 'ap/vim-css-color'
 Plug 'machakann/vim-sandwich'
 Plug 'tommcdo/vim-lion'
+Plug 'google/vim-searchindex'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
@@ -146,6 +149,10 @@ let g:airline_mode_map = {
 let g:airline#extensions#tabline#buffers_label = 'b'
 let g:airline#extensions#tabline#tabs_label = 't'
 set noshowmode
+function! AirlineInit()
+  let g:airline_section_x = airline#section#create(['filetype', '%{SpinnerText()}'])
+endfunction
+autocmd VimEnter * call AirlineInit()
 let g:airline_extensions = ['whitespace', 'neomake']
 
 let g:ranger_map_keys = 0
@@ -170,10 +177,72 @@ let g:neomake_fsc_maker = {
     \ '%Z%p^,' .
     \ '%-G%.%#'
   \ }
+  
+let g:neomake_sbt_maker = {
+  \ 'exe': 'sbt',
+  \ 'args': ['-Dsbt.log.noformat=true', 'compile'],
+  \ 'append_file': 0,
+  \ 'auto_enabled': 1,
+  \ 'output_stream': 'stdout',
+  \ 'errorformat':
+    \ '%E[error]\ %f:%l:\ %m,' .
+      \ '%-Z[error]\ %p^,' .
+      \ '%-C[error]   %.%#,' .
+      \ '%C[error]%m,' .
+      \ '%-G%.%#'
+\ }
 
-let g:neomake_scala_enabled_makers = ['fsc']
+"let g:neomake_scala_enabled_makers = ['fsc']
+let g:neomake_scala_enabled_makers = ['sbt']
 let g:neomake_javascript_enabled_makers = ['eslint']
 autocmd InsertLeave,TextChanged * update | Neomake
+
+let s:spinner_index = 0
+let s:active_spinners = 0
+let s:spinner_states = ['|', '/', '--', '\', '|', '/', '--', '\']
+let s:spinner_states = ['┤', '┘', '┴', '└', '├', '┌', '┬', '┐']
+let s:spinner_states = ['←', '↖', '↑', '↗', '→', '↘', '↓', '↙']
+let s:spinner_states = ['←', '↑', '→', '↓']
+let s:spinner_states = ['d', 'q', 'p', 'b']
+let s:spinner_states = ['.', 'o', 'O', '°', 'O', 'o', '.']
+let s:spinner_states = ['■', '□', '▪', '▫', '▪', '□', '■']
+
+function! StartSpinner()
+    let b:show_spinner = 1
+    let s:active_spinners += 1
+    if s:active_spinners == 1
+        let s:spinner_timer = timer_start(1000 / len(s:spinner_states), 'SpinSpinner', {'repeat': -1})
+    endif
+endfunction
+
+function! StopSpinner()
+    let b:show_spinner = 0
+    let s:active_spinners -= 1
+    if s:active_spinners == 0
+        :call timer_stop(s:spinner_timer)
+    endif
+endfunction
+
+function! SpinSpinner(timer)
+    let s:spinner_index = float2nr(fmod(s:spinner_index + 1, len(s:spinner_states)))
+    redraw
+endfunction
+
+function! SpinnerText()
+    if get(b:, 'show_spinner', 0) == 0
+        return " "
+    endif
+
+    return s:spinner_states[s:spinner_index]
+endfunction
+
+augroup neomake_hooks
+    au!
+    autocmd User NeomakeJobInit :call StartSpinner()
+    autocmd User NeomakeJobInit :echom "Build started"
+    autocmd User NeomakeFinished :call StopSpinner()
+    " autocmd User NeomakeFinished :echom "Build complete"
+augroup END
 
 function! GetBufferList()
     return filter(range(1,bufnr('$')), 'buflisted(v:val)')
