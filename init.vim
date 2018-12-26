@@ -118,7 +118,7 @@ call plug#end()
 let g:deoplete#enable_at_startup = 1
 
 let g:netrw_banner = 0
-let g:netrw_browse_split = 3
+let g:netrw_browse_split = 4
 let g:netrw_winsize = 25
 let g:netrw_liststyle = 3
 let g:netrw_altv = 1
@@ -283,3 +283,11 @@ au BufRead,BufNewFile *.sbt set filetype=scala
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+augroup clipboard
+  autocmd!
+  autocmd TextYankPost *
+    \  if v:event.regname==''&&v:event.operator=='y'
+    \|   let @+=join(v:event.regcontents, "\n")
+    \| endif
+augroup END
