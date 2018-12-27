@@ -1,24 +1,24 @@
 filetype plugin on
 
-set autoread
 set nobackup
 set cursorline
 set directory=~/.config/nvim/private/dir//
 set expandtab
 set fileencoding=utf-8
 set foldlevelstart=1
+set gdefault
 set hidden
 set ignorecase
 set list listchars=tab:>-,trail:·
 set notagrelative
 set number
-set omnifunc=syntaxcomplete#Complete
+set ofu=syntaxcomplete#Complete
 set relativenumber
-set ruler
 set scrolloff=5
 set shiftwidth=2
 set showcmd
 set showmatch
+set sidescrolloff=3
 set smartcase
 set softtabstop=2
 set splitright
@@ -28,6 +28,7 @@ set undodir=~/.config/nvim/private/undo//
 set undofile
 set updatetime=100
 set wildmode=list:longest
+set wrapscan
 
 au FocusGained * :checktime
 
@@ -61,7 +62,6 @@ nnoremap @ :x<CR>
 nnoremap N Nzzzv
 nnoremap Q @
 nnoremap Y y$
-nnoremap / /\v
 nnoremap ]l :try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>lfirst<bar>endtry<cr>
 nnoremap ]h :try<bar>lprev<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>llast<bar>endtry<cr>
 nnoremap gb :Buffers<CR>
@@ -69,20 +69,13 @@ nnoremap j gj
 nnoremap k gk
 nnoremap n nzzzv
 nnoremap s :Vexplore<CR>
-nnoremap S :%smagic//gc<Left><Left>
-nnoremap :g/ :g/\v
-nnoremap :g// :g//
+nnoremap S :%s//c<Left><Left>
 nnoremap <leader>bf :exe ':silent !firefox %'<CR>
 nnoremap <leader>bc :exe ':silent !google-chrome %'<CR>
 nnoremap <leader>bC :exe ':silent !chromium-browser %'<CR>
 nnoremap <leader>bo :exe ':silent !opera %'<CR>
 
-inoremap <C-b> <CR>
-inoremap <C-e> <ESC>%%a
-
 cnoremap <C-o> <CR>
-cnoremap %s/ %smagic/
-cnoremap \>s/ \>smagic/
 " <C-a>, A: move to head.
 cnoremap <C-a>          <Home>
 " <C-b>: previous char.
@@ -101,8 +94,6 @@ cnoremap <C-p>          <Up>
 cnoremap <C-y>          <C-r>*
 " <C-g>: Exit.
 cnoremap <C-g> <C-c>
-
-vnoremap / /\v
 
 map <leader>+ :!ctags -R -f ./.git/tags .<CR>
 
