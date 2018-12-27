@@ -69,8 +69,13 @@ nnoremap j gj
 nnoremap k gk
 nnoremap n nzzzv
 nnoremap s :Vexplore<CR>
+nnoremap S :%smagic//gc<Left><Left>
 nnoremap :g/ :g/\v
 nnoremap :g// :g//
+nnoremap <leader>bf :exe ':silent !firefox %'<CR>
+nnoremap <leader>bc :exe ':silent !google-chrome %'<CR>
+nnoremap <leader>bC :exe ':silent !chromium-browser %'<CR>
+nnoremap <leader>bo :exe ':silent !opera %'<CR>
 
 inoremap <C-b> <CR>
 inoremap <C-e> <ESC>%%a
@@ -78,6 +83,24 @@ inoremap <C-e> <ESC>%%a
 cnoremap <C-o> <CR>
 cnoremap %s/ %smagic/
 cnoremap \>s/ \>smagic/
+" <C-a>, A: move to head.
+cnoremap <C-a>          <Home>
+" <C-b>: previous char.
+cnoremap <C-b>          <Left>
+" <C-d>: delete char.
+cnoremap <C-d>          <Del>
+" <C-e>, E: move to end.
+cnoremap <C-e>          <End>
+" <C-f>: next char.
+cnoremap <C-f>          <Right>
+" <C-n>: next history.
+cnoremap <C-n>          <Down>
+" <C-p>: previous history.
+cnoremap <C-p>          <Up>
+" <C-y>: paste.
+cnoremap <C-y>          <C-r>*
+" <C-g>: Exit.
+cnoremap <C-g> <C-c>
 
 vnoremap / /\v
 
@@ -140,20 +163,20 @@ let g:airline_mode_map = {
   \ 'Rv' : 'R',
   \ 's'  : 'S',
   \ 'S'  : 'S',
-  \ ' ' : 'S',
+  \ ' '  : 'S',
   \ 't'  : 'T',
   \ 'v'  : 'V',
   \ 'V'  : 'V',
-  \ '' : 'V',
+  \ ''   : 'V',
   \ }
 let g:airline#extensions#tabline#buffers_label = 'b'
 let g:airline#extensions#tabline#tabs_label = 't'
 set noshowmode
 function! AirlineInit()
-  let g:airline_section_x = airline#section#create(['filetype', '%{SpinnerText()}'])
+  let g:airline_section_x = airline#section#create(['%{SpinnerText()}', 'filetype'])
 endfunction
 autocmd VimEnter * call AirlineInit()
-let g:airline_extensions = ['whitespace', 'neomake']
+let g:airline_extensions = ['whitespace', 'neomake', 'gitgutter']
 
 let g:ranger_map_keys = 0
 let g:ranger_replace_netrw = 1
@@ -273,7 +296,6 @@ endfunction
 
 command! -nargs=1 BW call WipeMatchingBuffers('<args>')
 
-let g:rainbow_active = 1
 let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
