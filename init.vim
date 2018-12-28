@@ -109,7 +109,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
-Plug 'gre/play2vim', { 'for': 'scala' }
+"Plug 'gre/play2vim', { 'for': 'scala' }
 Plug 'lambdalisue/gina.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -292,6 +292,8 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 let g:scala_scaladoc_indent = 1
 au BufRead,BufNewFile *.sbt set filetype=scala
+au BufRead,BufNewFile *.routes set filetype=scala
+au BufRead,BufNewFile *.scala.html set filetype=scala
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 command! -bang -nargs=? -complete=dir Files
