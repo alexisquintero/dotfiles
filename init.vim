@@ -1,6 +1,7 @@
 filetype plugin on
 
 set nobackup
+set cc=80
 set cursorline
 set directory=~/.config/nvim/private/dir//
 set expandtab
@@ -68,7 +69,7 @@ nnoremap gb :Buffers<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap n nzzzv
-nnoremap s :Vexplore<CR>
+nnoremap s :Vexplore
 nnoremap S :%s//c<Left><Left>
 nnoremap <leader>bf :exe ':silent !firefox %'<CR>
 nnoremap <leader>bc :exe ':silent !google-chrome %'<CR>
@@ -109,7 +110,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
-"Plug 'gre/play2vim', { 'for': 'scala' }
 Plug 'lambdalisue/gina.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -167,6 +167,8 @@ function! AirlineInit()
   let g:airline_section_x = airline#section#create(['%{SpinnerText()}', 'filetype'])
 endfunction
 autocmd VimEnter * call AirlineInit()
+call airline#parts#define_function('gina', 'gina#component#repo#branch')
+let g:airline_section_b = airline#section#create(['hunks', g:airline_symbols.branch,'gina'])
 let g:airline_extensions = ['whitespace', 'neomake', 'gitgutter']
 
 let g:ranger_map_keys = 0
@@ -208,8 +210,11 @@ let g:neomake_sbt_maker = {
 
 "let g:neomake_scala_enabled_makers = ['fsc']
 let g:neomake_scala_enabled_makers = ['sbt']
-let g:neomake_javascript_enabled_makers = ['eslint']
-autocmd InsertLeave,TextChanged * update | Neomake
+"let g:neomake_javascript_enabled_makers = ['eslint']
+augroup Scala
+  autocmd InsertLeave,TextChanged * update | Neomake!
+augroup END
+"autocmd InsertLeave,TextChanged * update | Neomake
 
 let s:spinner_index = 0
 let s:active_spinners = 0
@@ -306,3 +311,5 @@ augroup clipboard
     \|   let @+=join(v:event.regcontents, "\n")
     \| endif
 augroup END
+
+let g:gina#command#blame#formatter#format="%au %su%=on %ti %ma%in"
