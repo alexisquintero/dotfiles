@@ -1,7 +1,7 @@
 filetype plugin on
 
 set nobackup
-set cc=80
+set cc=120
 set cursorline
 set directory=~/.config/nvim/private/dir//
 set expandtab
@@ -104,7 +104,6 @@ Plug 'roxma/nvim-yarp'
 Plug 'neomake/neomake'
 Plug 'vim-airline/vim-airline'
 Plug 'https://github.com/yuttie/comfortable-motion.vim.git'
-Plug 'francoiscabrol/ranger.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'joshdick/onedark.vim'
 Plug 'airblade/vim-rooter'
@@ -170,10 +169,6 @@ autocmd VimEnter * call AirlineInit()
 call airline#parts#define_function('gina', 'gina#component#repo#branch')
 let g:airline_section_b = airline#section#create(['hunks', g:airline_symbols.branch,'gina'])
 let g:airline_extensions = ['whitespace', 'neomake', 'gitgutter']
-
-let g:ranger_map_keys = 0
-let g:ranger_replace_netrw = 1
-map <Leader>s :Ranger<CR>
 
 set runtimepath^=~/.local/share/nvim/plugged
 
