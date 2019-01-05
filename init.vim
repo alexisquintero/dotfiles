@@ -166,8 +166,6 @@ function! AirlineInit()
   let g:airline_section_x = airline#section#create(['%{SpinnerText()}', 'filetype'])
 endfunction
 autocmd VimEnter * call AirlineInit()
-call airline#parts#define_function('gina', 'gina#component#repo#branch')
-let g:airline_section_b = airline#section#create(['hunks', g:airline_symbols.branch,'gina'])
 let g:airline_extensions = ['whitespace', 'neomake', 'gitgutter']
 
 set runtimepath^=~/.local/share/nvim/plugged
