@@ -6,6 +6,7 @@
 	l = log
 	f = fetch
 	gud = commit --amend --no-edit
+	r = rebase
 [user]
 	email = alexis_quintero@hotmail.com.ar
 	name = Alexis Quintero
