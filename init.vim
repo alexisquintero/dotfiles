@@ -205,7 +205,7 @@ let g:neomake_sbt_maker = {
 let g:neomake_scala_enabled_makers = ['sbt']
 "let g:neomake_javascript_enabled_makers = ['eslint']
 augroup Scala
-  autocmd InsertLeave,TextChanged * update | Neomake!
+  autocmd BufWritePost * Neomake! sbt
 augroup END
 "autocmd InsertLeave,TextChanged * update | Neomake
 
@@ -290,7 +290,6 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 let g:scala_scaladoc_indent = 1
 au BufRead,BufNewFile *.sbt set filetype=scala
-au BufRead,BufNewFile *.routes set filetype=scala
 au BufRead,BufNewFile *.scala.html set filetype=scala
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
