@@ -10,6 +10,7 @@ set foldlevelstart=1
 set gdefault
 set hidden
 set ignorecase
+set inccommand=nosplit
 set list listchars=tab:>-,trail:·
 set notagrelative
 set number
@@ -71,7 +72,7 @@ nnoremap gb :Buffers<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap n nzzzv
-nnoremap s :Vexplore
+nnoremap s :Vexplore<CR>
 nnoremap S :%s//c<Left><Left>
 nnoremap <leader>bf :exe ':silent !firefox %'<CR>
 nnoremap <leader>bc :exe ':silent !google-chrome %'<CR>
@@ -178,7 +179,7 @@ let g:neomake_fsc_maker = {
     \ '%Z%p^,' .
     \ '%-G%.%#'
   \ }
-  
+
 let g:neomake_sbt_maker = {
   \ 'exe': 'sbt',
   \ 'args': ['-Dsbt.log.noformat=true', 'compile'],
