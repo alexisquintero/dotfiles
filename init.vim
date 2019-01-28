@@ -1,4 +1,4 @@
-filetype plugin on
+filetype plugin indent on
 
 set nobackup
 set cc=120
@@ -24,12 +24,14 @@ set smartcase
 set softtabstop=2
 set splitright
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
+set tags=.git/tags
 set termguicolors
 set undodir=~/.config/nvim/private/undo//
 set undofile
 set updatetime=100
 set wildmode=list:longest
 set wrapscan
+
 
 au FocusGained * :checktime
 
@@ -77,24 +79,15 @@ nnoremap <leader>bC :exe ':silent !chromium-browser %'<CR>
 nnoremap <leader>bo :exe ':silent !opera %'<CR>
 
 cnoremap <C-o> <CR>
-" <C-a>, A: move to head.
-cnoremap <C-a>          <Home>
-" <C-b>: previous char.
-cnoremap <C-b>          <Left>
-" <C-d>: delete char.
-cnoremap <C-d>          <Del>
-" <C-e>, E: move to end.
-cnoremap <C-e>          <End>
-" <C-f>: next char.
-cnoremap <C-f>          <Right>
-" <C-n>: next history.
-cnoremap <C-n>          <Down>
-" <C-p>: previous history.
-cnoremap <C-p>          <Up>
-" <C-y>: paste.
-cnoremap <C-y>          <C-r>*
-" <C-g>: Exit.
-cnoremap <C-g> <C-c>
+cnoremap <C-a>          <Home>  " <C-a>, A: move to head.
+cnoremap <C-b>          <Left>  " <C-b>: previous char.
+cnoremap <C-d>          <Del>   " <C-d>: delete char.
+cnoremap <C-e>          <End>   " <C-e>, E: move to end.
+cnoremap <C-f>          <Right> " <C-f>: next char.
+cnoremap <C-n>          <Down>  " <C-n>: next history.
+cnoremap <C-p>          <Up>    " <C-p>: previous history.
+cnoremap <C-y>          <C-r>*  " <C-y>: paste.
+cnoremap <C-g> <C-c>            " <C-g>: Exit.
 
 map <leader>+ :!ctags -R -f ./.git/tags .<CR>
 
@@ -113,7 +106,6 @@ Plug 'lambdalisue/gina.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
-Plug 'markonm/traces.vim'
 Plug 'ap/vim-css-color'
 Plug 'machakann/vim-sandwich'
 Plug 'tommcdo/vim-lion'
@@ -204,7 +196,7 @@ let g:neomake_sbt_maker = {
 "let g:neomake_scala_enabled_makers = ['fsc']
 let g:neomake_scala_enabled_makers = ['sbt']
 "let g:neomake_javascript_enabled_makers = ['eslint']
-augroup Scala
+augroup scala
   autocmd BufWritePost * Neomake! sbt
 augroup END
 "autocmd InsertLeave,TextChanged * update | Neomake
@@ -305,3 +297,6 @@ augroup clipboard
 augroup END
 
 let g:gina#command#blame#formatter#format="%au %su%=on %ti %ma%in"
+
+autocmd FileType javascript setlocal ts=4 sts=4 sw=4
+autocmd FileType scala setlocal foldmethod=indent include=^\\s*\\(from\\\|import\\) includeexpr=substitute(v:fname,'\\.','/','g')
