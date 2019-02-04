@@ -80,24 +80,25 @@ nnoremap <leader>bC :exe ':silent !chromium-browser %'<CR>
 nnoremap <leader>bo :exe ':silent !opera %'<CR>
 
 cnoremap <C-o> <CR>
-cnoremap <C-a>          <Home>  " <C-a>, A: move to head.
-cnoremap <C-b>          <Left>  " <C-b>: previous char.
-cnoremap <C-d>          <Del>   " <C-d>: delete char.
-cnoremap <C-e>          <End>   " <C-e>, E: move to end.
-cnoremap <C-f>          <Right> " <C-f>: next char.
-cnoremap <C-n>          <Down>  " <C-n>: next history.
-cnoremap <C-p>          <Up>    " <C-p>: previous history.
-cnoremap <C-y>          <C-r>*  " <C-y>: paste.
-cnoremap <C-g> <C-c>            " <C-g>: Exit.
+cnoremap <C-a> <Home>  " <C-a>, A: move to head.
+cnoremap <C-b> <Left>  " <C-b>: previous char.
+cnoremap <C-d> <Del>   " <C-d>: delete char.
+cnoremap <C-e> <End>   " <C-e>, E: move to end.
+cnoremap <C-f> <Right> " <C-f>: next char.
+cnoremap <C-n> <Down>  " <C-n>: next history.
+cnoremap <C-p> <Up>    " <C-p>: previous history.
+cnoremap <C-y> <C-r>*  " <C-y>: paste.
+cnoremap <C-g> <C-c>   " <C-g>: Exit.
 
 map <leader>+ :!ctags -R -f ./.git/tags .<CR>
 
-" = VIM PLUG
+command PrettifyJson %!python -m json.tool
+
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'roxma/nvim-yarp'
 Plug 'neomake/neomake'
 Plug 'vim-airline/vim-airline'
-Plug 'https://github.com/yuttie/comfortable-motion.vim.git'
+Plug 'yuttie/comfortable-motion.vim.git'
 Plug 'airblade/vim-gitgutter'
 Plug 'joshdick/onedark.vim'
 Plug 'airblade/vim-rooter'
@@ -249,35 +250,6 @@ augroup neomake_hooks
     " autocmd User NeomakeFinished :echom "Build complete"
 augroup END
 
-function! GetBufferList()
-    return filter(range(1,bufnr('$')), 'buflisted(v:val)')
-endfunction
-
-function! GetMatchingBuffers(pattern)
-    return filter(GetBufferList(), 'bufname(v:val) =~ a:pattern')
-endfunction
-
-function! WipeMatchingBuffers(pattern)
-    let l:matchList = GetMatchingBuffers(a:pattern)
-
-    let l:count = len(l:matchList)
-    if l:count < 1
-        echo 'No buffers found matching pattern ' . a:pattern
-        return
-    endif
-
-    if l:count == 1
-        let l:suffix = ''
-    else
-        let l:suffix = 's'
-    endif
-    exec 'bd ' . join(l:matchList, ' ')
-
-    echo 'Wiped ' . l:count . ' buffer' . l:suffix . '.'
-endfunction
-
-command! -nargs=1 BW call WipeMatchingBuffers('<args>')
-
 let g:rainbow#max_level = 16
 let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
@@ -301,3 +273,23 @@ let g:gina#command#blame#formatter#format="%au %su%=on %ti %ma%in"
 
 autocmd FileType javascript setlocal ts=4 sts=4 sw=4
 autocmd FileType scala setlocal foldmethod=indent include=^\\s*\\(from\\\|import\\) includeexpr=substitute(v:fname,'\\.','/','g')
+
+" Ensime
+nnoremap <leader>t :EnType<CR>
+nnoremap <leader>gd :EnDeclaration<CR>
+
+"source https://github.com/neomake/neomake/commit/972cc885d39c6c36084220cf628692ac2053284e#diff-0e9135380aa33290cc5014283dae898aR313
+let g:ensime_maker = {'name': 'Ensime'}
+function! g:ensime_maker.get_list_entries(jobinfo) abort
+  return b:ensime_notes
+endfunction
+"https://github.com/ensime/ensime-vim/blob/ee9519335feced0df213da0a929e96329cf08958/ensime_shared/editor.py#L358
+"ensime only populates b:ensime_notes if it detects Syntastic
+command! -nargs=1 SyntasticCheck execute "call neomake#Make(1, [g:ensime_maker])"
+function! Ensime_retypecheck() abort
+  let b:ensime_notes=[]
+  exe "SyntasticCheck ensime"
+  exe "EnTypeCheck"
+endfunction
+autocmd BufWritePost *.scala call Ensime_retypecheck()
+let g:neomake_scala_enabled_makers = []
