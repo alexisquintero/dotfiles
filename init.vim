@@ -33,7 +33,6 @@ set updatetime=100
 set wildmode=list:longest
 set wrapscan
 
-
 au FocusGained * :checktime
 
 let mapleader = "\<Space>"
@@ -98,7 +97,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'roxma/nvim-yarp'
 Plug 'neomake/neomake'
 Plug 'vim-airline/vim-airline'
-Plug 'yuttie/comfortable-motion.vim.git'
+Plug 'https://github.com/yuttie/comfortable-motion.vim.git'
 Plug 'airblade/vim-gitgutter'
 Plug 'joshdick/onedark.vim'
 Plug 'airblade/vim-rooter'
@@ -112,6 +111,7 @@ Plug 'ap/vim-css-color'
 Plug 'machakann/vim-sandwich'
 Plug 'tommcdo/vim-lion'
 Plug 'google/vim-searchindex'
+Plug 'benjie/local-npm-bin.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
@@ -196,12 +196,11 @@ let g:neomake_sbt_maker = {
 \ }
 
 "let g:neomake_scala_enabled_makers = ['fsc']
-let g:neomake_scala_enabled_makers = ['sbt']
-"let g:neomake_javascript_enabled_makers = ['eslint']
-augroup scala
-  autocmd BufWritePost * Neomake! sbt
-augroup END
-"autocmd InsertLeave,TextChanged * update | Neomake
+"let g:neomake_scala_enabled_makers = ['sbt']
+let g:neomake_javascript_enabled_makers = ['eslint']
+"au BufWritePost *.scala, *.scala.html * Neomake! sbt
+autocmd InsertLeave,TextChanged * update | Neomake
+
 
 let s:spinner_index = 0
 let s:active_spinners = 0
