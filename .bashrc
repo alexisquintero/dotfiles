@@ -55,8 +55,77 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+branchStatus () {
+  MAINCHAR="❱"
+  MAINBEHINDCHAR="❰"
+  CURRENTCHAR="❱"
+  CURRENTBEHINDCHAR="❰"
+  DETACHEDCHAR="⥈"
+
+  EDITEDFILESCOLOR="\e[32m"
+  DETACHEDCOLOR="\e[91m"
+
+  CURRENT=$(git symbolic-ref --short -q HEAD)
+
+  OUTPUT=""
+  #Check if detached
+  if [[ $CURRENT == fatal* ]]
+  then
+    OUTPUT+="$DETACHEDCOLOR$DETACHEDCHAR"
+    echo -e $OUTPUT
+    #END FUNCTION
+    return
+  fi
+
+  REMOTE=$(git remote)
+  MAINBRANCH="develop"
+  UPSTREAMMAIN="$REMOTE/$MAINBRANCH"
+  CURRENTUPSTREAM="$REMOTE/$CURRENT"
+
+  RPMAINBRANCH=$(git rev-parse $MAINBRANCH)
+  RPUPSTREAMMAIN=$(git rev-parse $UPSTREAMMAIN)
+  RPCURRENT=$(git rev-parse $CURRENT)
+  RPCURRENTUPSTREAM=$(git rev-parse $CURRENTUPSTREAM)
+
+  #Check if there are edited files
+  if [[ ! -z $(git status -s) ]]
+  then
+    OUTPUT+="$EDITEDFILESCOLOR"
+  fi
+  #Check if current is up to date
+  if [ $RPCURRENT = $RPCURRENTUPSTREAM ]
+  then
+    OUTPUT+="$CURRENTCHAR"
+  else
+    OUTPUT+="$CURRENTBEHINDCHAR"
+  fi
+  #Check current != main
+  if [ $CURRENT = $MAINBRANCH ]
+  then
+    echo -e $OUTPUT
+    return
+  fi
+  #Check if main is up to date
+  if [ $RPMAINBRANCH = $RPUPSTREAMMAIN ]
+  then
+    OUTPUT+="$MAINCHAR"
+  else
+    OUTPUT+="$MAINBEHINDCHAR"
+  fi
+  echo -e $OUTPUT
+}
+
+insideGit () {
+  if git rev-parse --git-dir > /dev/null 2>&1; then
+    #echo "inside git repo"
+    echo $(branchStatus)
+  else
+    echo '❱'
+  fi
+}
+
 if [ "$color_prompt" = yes ]; then
-    PS1='\[\e[1m\e[93m\]\u@\[\e[0m\e[93m\]\W \[\e[91m\e[1m\]❯ \[\e[0m\]'
+    PS1='\[\e[1m\e[93m\]\u@\[\e[0m\e[93m\]\W \[\e[1m\]$(insideGit) \[\e[0m\]'
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
