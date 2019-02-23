@@ -79,15 +79,16 @@ nnoremap <leader>bC :exe ':silent !chromium-browser %'<CR>
 nnoremap <leader>bo :exe ':silent !opera %'<CR>
 
 cnoremap <C-o> <CR>
-cnoremap <C-a> <Home>  " <C-a>, A: move to head.
-cnoremap <C-b> <Left>  " <C-b>: previous char.
-cnoremap <C-d> <Del>   " <C-d>: delete char.
-cnoremap <C-e> <End>   " <C-e>, E: move to end.
-cnoremap <C-f> <Right> " <C-f>: next char.
-cnoremap <C-n> <Down>  " <C-n>: next history.
-cnoremap <C-p> <Up>    " <C-p>: previous history.
-cnoremap <C-y> <C-r>*  " <C-y>: paste.
-cnoremap <C-g> <C-c>   " <C-g>: Exit.
+cnoremap <C-a> <Home>
+cnoremap <C-b> <Left>
+cnoremap <C-d> <Del>
+cnoremap <C-e> <End>
+cnoremap <C-f> <Right>
+cnoremap <C-n> <Down>
+cnoremap <C-p> <Up>
+cnoremap <C-y> <C-r>*
+cnoremap <C-g> <C-c>
+cnoremap sudow w !sudo tee % >/dev/null
 
 map <leader>+ :!ctags -R -f ./.git/tags .<CR>
 
