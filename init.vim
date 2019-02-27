@@ -15,7 +15,6 @@ set list listchars=tab:>-,trail:·
 set notagrelative
 set number
 set ofu=syntaxcomplete#Complete
-set relativenumber
 set scrolloff=5
 set shiftwidth=2
 set showcmd
