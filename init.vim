@@ -26,6 +26,8 @@ set softtabstop=2
 set splitright
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 set tags=.git/tags
+  au FileType scala set tags=.git/scala-tags
+  au FileType javascript set tags=.git/javascript-tags
 set termguicolors
 set undodir=~/.config/nvim/private/undo//
 set undofile
@@ -91,8 +93,12 @@ cnoremap <C-g> <C-c>
 cnoremap sudow w !sudo tee % >/dev/null
 
 map <leader>+ :!ctags -R -f ./.git/tags .<CR>
+  au FileType scala map <leader>+ :!ctags -R -f ./.git/scala-tags --language-force=scala .<CR>
+  " https://github.com/luben/sctags
+  "au FileType scala map <leader>+ :!sctags -R -f ./.git/scala-tags --language-force=scala .<CR>
+  au FileType javascript map <leader>+ :!ctags -R -f ./.git/javascript/tags --language-force=javascript .<CR>
 
-command PrettifyJson %!python -m json.tool
+command! PrettifyJson %!python -m json.tool
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'roxma/nvim-yarp'
