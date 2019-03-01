@@ -39,7 +39,6 @@ au FocusGained * :checktime
 let mapleader = "\<Space>"
 
 nnoremap <C-]> <C-]>zz
-nnoremap <C-b> i<CR><ESC>
 nnoremap <C-e> 5<C-e>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -52,13 +51,7 @@ nnoremap <M-p> :Ag<CR>
 nnoremap <Leader>* :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nnoremap <SPACE> <Nop>
 nnoremap <leader>F :let @+=@%<CR>
-nnoremap <leader>T :CtrlPTag<CR>
 nnoremap <leader>f :let @+=expand('%:t')<CR>
-nnoremap <leader>h gT
-nnoremap <leader>j <C-W>T
-nnoremap <leader>j i<CR><ESC>
-nnoremap <leader>l gt
-nnoremap <leader>p cw<C-r>0<ESC>
 nnoremap <leader>q :ptjump <C-r><C-w><CR>
 nnoremap <leader>Q :pclose<CR>
 nnoremap <silent><C-n> :noh<CR>
@@ -72,8 +65,6 @@ nnoremap gb :Buffers<CR>
 nnoremap j gj
 nnoremap k gk
 nnoremap n nzzzv
-nnoremap s :Vexplore<CR>
-nnoremap S :%s//c<Left><Left>
 nnoremap <leader>bf :exe ':silent !firefox %'<CR>
 nnoremap <leader>bc :exe ':silent !google-chrome %'<CR>
 nnoremap <leader>bC :exe ':silent !chromium-browser %'<CR>
@@ -93,9 +84,7 @@ cnoremap sudow w !sudo tee % >/dev/null
 
 map <leader>+ :!ctags -R -f ./.git/tags .<CR>
   au FileType scala map <leader>+ :!ctags -R -f ./.git/scala-tags --language-force=scala .<CR>
-  " https://github.com/luben/sctags
-  "au FileType scala map <leader>+ :!sctags -R -f ./.git/scala-tags --language-force=scala .<CR>
-  au FileType javascript map <leader>+ :!ctags -R -f ./.git/javascript/tags --language-force=javascript .<CR>
+  au FileType javascript map <leader>+ :!ctags -R -f ./.git/javascript-tags --language-force=javascript .<CR>
 
 command! PrettifyJson %!python -m json.tool
 
@@ -112,9 +101,7 @@ Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'lambdalisue/gina.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'easymotion/vim-easymotion'
 Plug 'ap/vim-css-color'
-Plug 'machakann/vim-sandwich'
 Plug 'tommcdo/vim-lion'
 Plug 'google/vim-searchindex'
 Plug 'benjie/local-npm-bin.vim'
@@ -138,7 +125,6 @@ let g:netrw_altv = 1
 let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
 
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='dark'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_mode_map = {
   \ '__' : '-',
@@ -210,12 +196,6 @@ autocmd InsertLeave,TextChanged * update | Neomake
 
 let s:spinner_index = 0
 let s:active_spinners = 0
-let s:spinner_states = ['|', '/', '--', '\', '|', '/', '--', '\']
-let s:spinner_states = ['┤', '┘', '┴', '└', '├', '┌', '┬', '┐']
-let s:spinner_states = ['←', '↖', '↑', '↗', '→', '↘', '↓', '↙']
-let s:spinner_states = ['←', '↑', '→', '↓']
-let s:spinner_states = ['d', 'q', 'p', 'b']
-let s:spinner_states = ['.', 'o', 'O', '°', 'O', 'o', '.']
 let s:spinner_states = ['■', '□', '▪', '▫', '▪', '□', '■']
 
 function! StartSpinner()
