@@ -15,8 +15,6 @@
 --regex-scala=/.*object[ \t]+([a-zA-Z0-9_]+)/\1/o,objects/
 --regex-scala=/^[ \t]*private def[ \t]+([a-zA-Z0-9_]+)/\1/pd,defs/
 
---exclude=.gitignore
-
 --langmap=javascript:.js.es6.es.jsx
 --javascript-kinds=-c-f-m-p-v
 
@@ -118,6 +116,17 @@
 --regex-javascript=/^[ \t]*var[ \t]\{1,\}\([A-Za-z0-9_$]\{1,\}\)[ \t]*=[ \t]*new/\1/V,Variable,Variables/b
 --regex-javascript=/^[ \t]*let[ \t]\{1,\}\([A-Za-z0-9_$]\{1,\}\)[ \t]*=[ \t]*new/\1/V,Variable,Variables/b
 --regex-javascript=/^[ \t]*const[ \t]\{1,\}\([A-Za-z0-9_$]\{1,\}\)[ \t]*=[ \t]*new/\1/V,Variable,Variables/b
+
+--langdef=css
+--langmap=css:.css
+--langmap=css:+.scss
+--langmap=css:+.sass
+--langmap=css:+.styl
+--langmap=css:+.less
+--regex-css=/^[ \t]*\.([A-Za-z0-9_]+-[A-Za-z0-9_-]+)( |$)/.\1/c,class,classes/
+--regex-css=/^([\$@][A-Za-z0-9_-]+): /\1/v,variable,variables/
+--regex-css=/^([A-Za-z0-9_-]+) = /\1/v,variable,variables/
+--regex-css=/^[ \t]*(@mixin |= ?)([A-Za-z0-9_-]+)/\2/m,mixin,mixins/
 
 --exclude=.gitignore
 --exclude=min
