@@ -83,7 +83,9 @@ cnoremap <C-y> <C-r>*
 cnoremap <C-g> <C-c>
 cnoremap sudow w !sudo tee % >/dev/null
 
-map <leader>+ :!ctags -R -f ./.git/tags .<CR>
+tnoremap <Esc> <C-\><C-n>
+
+nnoremap <leader>+ :!ctags -R -f ./.git/tags .<CR>
   au FileType scala map <leader>+ :!ctags -R -f ./.git/scala-tags --languages=scala .<CR>
   au FileType javascript map <leader>+ :!ctags -R -f ./.git/javascript-tags --languages=javascript .<CR>
   au FileType css map <leader>+ :!ctags -R -f ./.git/css-tags --languages=css .<CR>
