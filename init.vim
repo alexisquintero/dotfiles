@@ -100,6 +100,7 @@ Plug 'joshdick/onedark.vim'
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
+Plug 'gre/play2vim'
 Plug 'lambdalisue/gina.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
