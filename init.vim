@@ -27,6 +27,7 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 set tags=.git/tags
   au FileType scala set tags=.git/scala-tags
   au FileType javascript set tags=.git/javascript-tags
+  au FileType css set tags =.git/css-tags
 set termguicolors
 set undodir=~/.config/nvim/private/undo//
 set undofile
@@ -83,8 +84,9 @@ cnoremap <C-g> <C-c>
 cnoremap sudow w !sudo tee % >/dev/null
 
 map <leader>+ :!ctags -R -f ./.git/tags .<CR>
-  au FileType scala map <leader>+ :!ctags -R -f ./.git/scala-tags --language-force=scala .<CR>
-  au FileType javascript map <leader>+ :!ctags -R -f ./.git/javascript-tags --language-force=javascript .<CR>
+  au FileType scala map <leader>+ :!ctags -R -f ./.git/scala-tags --languages=scala .<CR>
+  au FileType javascript map <leader>+ :!ctags -R -f ./.git/javascript-tags --languages=javascript .<CR>
+  au FileType css map <leader>+ :!ctags -R -f ./.git/css-tags --languages=css .<CR>
 
 command! PrettifyJson %!python -m json.tool
 
@@ -101,10 +103,13 @@ Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'lambdalisue/gina.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'ap/vim-css-color'
+Plug 'ap/vim-css-color', { 'for': 'css' }
+Plug 'groenewege/vim-less', { 'for': [ 'sass', 'less' ] }
 Plug 'tommcdo/vim-lion'
 Plug 'google/vim-searchindex'
 Plug 'benjie/local-npm-bin.vim'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'dzeban/vim-log-syntax', { 'for': 'log' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
