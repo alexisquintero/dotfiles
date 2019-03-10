@@ -99,7 +99,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'https://github.com/yuttie/comfortable-motion.vim.git'
 Plug 'airblade/vim-gitgutter'
 Plug 'joshdick/onedark.vim'
-Plug 'airblade/vim-rooter'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'gre/play2vim'
@@ -110,7 +109,6 @@ Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'groenewege/vim-less', { 'for': [ 'sass', 'less' ] }
 Plug 'tommcdo/vim-lion'
 Plug 'google/vim-searchindex'
-Plug 'benjie/local-npm-bin.vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'dzeban/vim-log-syntax', { 'for': 'log' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -198,6 +196,7 @@ let g:neomake_sbt_maker = {
 "let g:neomake_scala_enabled_makers = ['fsc']
 "let g:neomake_scala_enabled_makers = ['sbt']
 let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_eslint_exe = './node_modules/.bin/eslint'
 "au BufWritePost *.scala, *.scala.html * Neomake! sbt
 autocmd InsertLeave,TextChanged * update | Neomake
 
@@ -264,7 +263,7 @@ augroup END
 
 let g:gina#command#blame#formatter#format="%au %su%=on %ti %ma%in"
 
-autocmd FileType javascript setlocal ts=4 sts=4 sw=4
+"autocmd FileType javascript setlocal ts=4 sts=4 sw=4
 autocmd FileType scala setlocal foldmethod=indent include=^\\s*\\(from\\\|import\\) includeexpr=substitute(v:fname,'\\.','/','g')
 
 " Ensime
