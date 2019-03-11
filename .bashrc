@@ -122,7 +122,7 @@ insideGit () {
 }
 
 if [ "$color_prompt" = yes ]; then
-    PS1='\[\e[1m\e[93m\]\u@\[\e[0m\e[93m\]\W \[\e[1m\]$(insideGit) \[\e[0m\]'
+    PS1='\[\e[1m\e[93m\]\u@\[\e[0m\e[93m\]\W \[\e[1m\]\[$(insideGit)\] \[\e[0m\]'
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
