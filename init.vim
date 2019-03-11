@@ -12,6 +12,7 @@ set hidden
 set ignorecase
 set inccommand=nosplit
 set list listchars=tab:>-,trail:·
+set noequalalways
 set notagrelative
 set number
 set ofu=syntaxcomplete#Complete
@@ -22,8 +23,10 @@ set showmatch
 set sidescrolloff=3
 set smartcase
 set softtabstop=2
+set splitbelow
 set splitright
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
+set tagcase=smart
 set tags=.git/tags
   au FileType scala set tags=.git/scala-tags
   au FileType javascript set tags=.git/javascript-tags
@@ -96,13 +99,14 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'roxma/nvim-yarp'
 Plug 'neomake/neomake'
 Plug 'vim-airline/vim-airline'
-Plug 'https://github.com/yuttie/comfortable-motion.vim.git'
+Plug 'yuttie/comfortable-motion.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'joshdick/onedark.vim'
+Plug 'mhartington/oceanic-next'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'gre/play2vim'
-Plug 'lambdalisue/gina.vim'
+Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
+Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'ap/vim-css-color', { 'for': 'css' }
@@ -111,12 +115,14 @@ Plug 'tommcdo/vim-lion'
 Plug 'google/vim-searchindex'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'dzeban/vim-log-syntax', { 'for': 'log' }
+Plug 'Valloric/MatchTagAlways'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
 let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
 let g:deoplete#omni#input_patterns={}
-let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
+let g:deoplete#omni#input_patterns.scala = ['[^. *\t0-9]\.\w*',': [A-Z]\w', '[\[\t\( ][A-Za-z]\w*']
+"let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
 " Initialize plugin system
 call plug#end()
 
@@ -158,13 +164,15 @@ function! AirlineInit()
   let g:airline_section_x = airline#section#create(['%{SpinnerText()}', 'filetype'])
 endfunction
 autocmd VimEnter * call AirlineInit()
-let g:airline_extensions = ['whitespace', 'neomake', 'gitgutter']
+let g:airline_extensions = ['whitespace', 'neomake']
 
 set runtimepath^=~/.local/share/nvim/plugged
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-let g:airline_theme='onedark'
-colorscheme onedark
+let g:airline_theme='oceanicnext'
+colorscheme OceanicNext
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
 
 let g:neomake_fsc_maker = {
   \ 'errorformat':
@@ -196,7 +204,8 @@ let g:neomake_sbt_maker = {
 "let g:neomake_scala_enabled_makers = ['fsc']
 "let g:neomake_scala_enabled_makers = ['sbt']
 let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_javascript_eslint_exe = './node_modules/.bin/eslint'
+let s:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
+let g:neomake_javascript_eslint_exe = substitute(s:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 "au BufWritePost *.scala, *.scala.html * Neomake! sbt
 autocmd InsertLeave,TextChanged * update | Neomake
 
