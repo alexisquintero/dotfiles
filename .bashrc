@@ -45,14 +45,11 @@ esac
 #force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
+  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    color_prompt=yes
+  else
+    color_prompt=
+  fi
 fi
 
 branchStatus () {
@@ -78,7 +75,7 @@ branchStatus () {
   fi
 
   REMOTE=$(git remote)
-  MAINBRANCH="develop"
+  MAINBRANCH="master"
   UPSTREAMMAIN="$REMOTE/$MAINBRANCH"
   CURRENTUPSTREAM="$REMOTE/$CURRENT"
 
@@ -205,3 +202,27 @@ alias hdw='amixer set Headphone 10%-'
 alias sup='amixer set Front 10%+'
 alias sdw='amixer set Front 10%-'
 alias headphone='amixer set Headphone playback 50% unmute'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+SSH_ENV=$HOME/.ssh/environment
+
+# start the ssh-agent
+function start_agent {
+    echo "Initializing new SSH agent..."
+    # spawn ssh-agent
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > ${SSH_ENV}
+    echo succeeded
+    chmod 600 ${SSH_ENV}
+    . ${SSH_ENV} > /dev/null
+    /usr/bin/ssh-add
+}
+
+if [ -f "${SSH_ENV}" ]; then
+     . ${SSH_ENV} > /dev/null
+     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
+fi
