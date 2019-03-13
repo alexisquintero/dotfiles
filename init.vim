@@ -112,10 +112,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'groenewege/vim-less', { 'for': [ 'sass', 'less' ] }
 Plug 'tommcdo/vim-lion'
-Plug 'google/vim-searchindex'
+Plug 'romainl/vim-cool'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'dzeban/vim-log-syntax', { 'for': 'log' }
 Plug 'Valloric/MatchTagAlways'
+Plug 'mboughaba/i3config.vim' "set ft=i3config
+Plug 'qpkorr/vim-bufkill'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
@@ -294,3 +297,5 @@ function! Ensime_retypecheck() abort
 endfunction
 autocmd BufWritePost *.scala call Ensime_retypecheck()
 let g:neomake_scala_enabled_makers = []
+
+let g:CoolTotalMatches = 1
