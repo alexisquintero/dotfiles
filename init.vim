@@ -96,7 +96,6 @@ nnoremap <leader>+ :!ctags -R -f ./.git/tags .<CR>
 command! PrettifyJson %!python -m json.tool
 
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'roxma/nvim-yarp'
 Plug 'neomake/neomake'
 Plug 'vim-airline/vim-airline'
 Plug 'yuttie/comfortable-motion.vim'
@@ -107,6 +106,7 @@ Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
 Plug 'gre/play2vim'
 Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-speeddating'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'ap/vim-css-color', { 'for': 'css' }
