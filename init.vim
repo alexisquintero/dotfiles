@@ -119,12 +119,14 @@ Plug 'dzeban/vim-log-syntax', { 'for': 'log' }
 Plug 'Valloric/MatchTagAlways'
 Plug 'mboughaba/i3config.vim' "set ft=i3config
 Plug 'qpkorr/vim-bufkill'
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources={}
 let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips']
 let g:deoplete#omni#input_patterns={}
 let g:deoplete#omni#input_patterns.scala = ['[^. *\t0-9]\.\w*',': [A-Z]\w', '[\[\t\( ][A-Za-z]\w*']
+let g:deoplete#auto_complete_start_length = 1
 "let g:deoplete#omni#input_patterns.scala='[^. *\t]\.\w*'
 " Initialize plugin system
 call plug#end()
@@ -299,3 +301,18 @@ autocmd BufWritePost *.scala call Ensime_retypecheck()
 let g:neomake_scala_enabled_makers = []
 
 let g:CoolTotalMatches = 1
+
+let g:deoplete#sources#ternjs#timeout = 1
+let g:deoplete#sources#ternjs#types = 1
+let g:deoplete#sources#ternjs#depths = 1
+let g:deoplete#sources#ternjs#docs = 1
+let g:deoplete#sources#ternjs#case_insensitive = 1
+let g:deoplete#sources#ternjs#sort = 0
+let g:deoplete#sources#ternjs#omit_object_prototype = 0
+let g:deoplete#sources#ternjs#include_keywords = 1
+let g:deoplete#sources#ternjs#filetypes = [
+  \ 'jsx',
+  \ 'javascript.jsx',
+  \ 'vue',
+  \ '...'
+  \ ]
