@@ -261,7 +261,6 @@ let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
 
 let g:scala_scaladoc_indent = 1
 au BufRead,BufNewFile *.sbt set filetype=scala
-au BufRead,BufNewFile *.scala.html set filetype=scala
 
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 command! -bang -nargs=? -complete=dir Files
