@@ -102,7 +102,7 @@ Plug 'yuttie/comfortable-motion.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'mhartington/oceanic-next'
 Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'derekwyatt/vim-scala', { 'for': 'scala' }
+Plug 'jvican/vim-scala', { 'for': 'scala' }
 Plug 'gre/play2vim'
 Plug 'ensime/ensime-vim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tpope/vim-fugitive'
@@ -281,6 +281,8 @@ let g:gina#command#blame#formatter#format="%au %su%=on %ti %ma%in"
 autocmd FileType scala setlocal foldmethod=indent include=^\\s*\\(from\\\|import\\) includeexpr=substitute(v:fname,'\\.','/','g')
 
 " Ensime
+let g:ensime_server_v2=1
+
 nnoremap <leader>t :EnType<CR>
 nnoremap <leader>gd :EnDeclaration<CR>
 
@@ -298,7 +300,7 @@ function! Ensime_retypecheck() abort
   exe "EnTypeCheck"
 endfunction
 autocmd BufWritePost *.scala call Ensime_retypecheck()
-let g:neomake_scala_enabled_makers = []
+"let g:neomake_scala_enabled_makers = []
 
 let g:CoolTotalMatches = 1
 
