@@ -115,7 +115,6 @@ Plug 'tommcdo/vim-lion'
 Plug 'romainl/vim-cool'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
-Plug 'dzeban/vim-log-syntax', { 'for': 'log' }
 Plug 'Valloric/MatchTagAlways'
 Plug 'mboughaba/i3config.vim' "set ft=i3config
 Plug 'qpkorr/vim-bufkill'
