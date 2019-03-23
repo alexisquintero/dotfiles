@@ -65,18 +65,18 @@ branchStatus () {
   EDITEDFILESCOLOR="\001\e[32m\002"
   DETACHEDCOLOR="\001\e[91m\002"
 
-  CURRENT=$(git symbolic-ref --short -q HEAD)
-
   OUTPUT=""
   #Check if detached
-  if [[ $CURRENT == fatal* ]]
+  if [[ -n `git branch -v | grep "detached"` ]]
   then
     OUTPUT+=$DETACHEDCOLOR$DETACHEDCHAR
-    #END FUNCTION
+    echo -e $OUTPUT
     return
   fi
 
   REMOTE=$(git remote)
+  CURRENT=$(git symbolic-ref --short -q HEAD)
+
   MAINBRANCH="master"
   DEVELOP="develop"
   if [ `git branch | egrep "^[*]{0,1}[[:space:]]+${DEVELOP}$"` ]
