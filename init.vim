@@ -213,6 +213,7 @@ let g:neomake_javascript_eslint_exe = substitute(s:eslint_path, '^\n*\s*\(.\{-}\
 "au BufWritePost *.scala, *.scala.html * Neomake! sbt
 autocmd InsertLeave,TextChanged * update | Neomake
 
+
 let s:spinner_index = 0
 let s:active_spinners = 0
 let s:spinner_states = ['■', '□', '▪', '▫', '▪', '□', '■']

@@ -53,14 +53,17 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 branchStatus () {
-  MAINCHAR="❱"
+  MAINCHAR="❙"
   MAINBEHINDCHAR="❰"
-  CURRENTCHAR="❱"
+  MAINAHEADCHAR="❱"
+  CURRENTCHAR="❙"
   CURRENTBEHINDCHAR="❰"
+  CURRENTAHEADCHAR="❱"
   DETACHEDCHAR="⥈"
+  PROBLEMCHAR="❗"
 
-  EDITEDFILESCOLOR="\e[32m"
-  DETACHEDCOLOR="\e[91m"
+  EDITEDFILESCOLOR="\001\e[32m\002"
+  DETACHEDCOLOR="\001\e[91m\002"
 
   CURRENT=$(git symbolic-ref --short -q HEAD)
 
@@ -68,14 +71,18 @@ branchStatus () {
   #Check if detached
   if [[ $CURRENT == fatal* ]]
   then
-    OUTPUT+="$DETACHEDCOLOR$DETACHEDCHAR"
-    echo -e $OUTPUT
+    OUTPUT+=$DETACHEDCOLOR$DETACHEDCHAR
     #END FUNCTION
     return
   fi
 
   REMOTE=$(git remote)
   MAINBRANCH="master"
+  DEVELOP="develop"
+  if [ `git branch | egrep "^[*]{0,1}[[:space:]]+${DEVELOP}$"` ]
+  then
+    MAINBRANCH=$DEVELOP
+  fi
   UPSTREAMMAIN="$REMOTE/$MAINBRANCH"
   CURRENTUPSTREAM="$REMOTE/$CURRENT"
 
@@ -87,14 +94,30 @@ branchStatus () {
   #Check if there are edited files
   if [[ ! -z $(git status -s) ]]
   then
-    OUTPUT+="$EDITEDFILESCOLOR"
+    OUTPUT+=$EDITEDFILESCOLOR
   fi
   #Check if current is up to date
   if [ $RPCURRENT = $RPCURRENTUPSTREAM ]
   then
-    OUTPUT+="$CURRENTCHAR"
+    OUTPUT+=$CURRENTCHAR
   else
-    OUTPUT+="$CURRENTBEHINDCHAR"
+    #Check if current is ahead
+    if [ `git log --format='%H' ${CURRENTUPSTREAM} | egrep "^${RPCURRENT}$"` ]
+    then
+      #NOT ahead
+      OUTPUT+=$CURRENTBEHINDCHAR
+    else
+      #Ahead
+      #Check if current is behind
+      if [ `git log --format='%H' | egrep "^${RPCURRENTUPSTREAM}$"`]
+      then
+        #NOT behind
+        OUTPUT+=$CURRENTAHEADCHAR
+      else
+        #Behind
+        OUTPUT+=$PROBLEMCHAR
+      fi
+    fi
   fi
   #Check current != main
   if [ $CURRENT = $MAINBRANCH ]
@@ -105,9 +128,9 @@ branchStatus () {
   #Check if main is up to date
   if [ $RPMAINBRANCH = $RPUPSTREAMMAIN ]
   then
-    OUTPUT+="$MAINCHAR"
+    OUTPUT+=$MAINCHAR
   else
-    OUTPUT+="$MAINBEHINDCHAR"
+    OUTPUT+=$MAINBEHINDCHAR
   fi
   echo -e $OUTPUT
 }
@@ -117,12 +140,19 @@ insideGit () {
     #echo "inside git repo"
     echo $(branchStatus)
   else
-    echo '❱'
+    echo '⬥'
   fi
 }
 
+LYELLOW="\[\e[93m\]"
+
+BOLD="\[\e[1m\]"
+NORMAL="\[\e[21m\]"
+
+RESET="\[\e[0m\]"
+
 if [ "$color_prompt" = yes ]; then
-    PS1='\[\e[1m\e[93m\]\u@\[\e[0m\e[93m\]\W \[\e[1m\]\[$(insideGit)\] \[\e[0m\]'
+    PS1="${LYELLOW}${BOLD}\u@\W${BOLD} \$(insideGit) ${RESET}"
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -208,7 +238,7 @@ alias headphone='amixer set Headphone playback 50% unmute'
 SSH_ENV=$HOME/.ssh/environment
 
 # start the ssh-agent
-function start_agent {
+start_agent () {
     echo "Initializing new SSH agent..."
     # spawn ssh-agent
     /usr/bin/ssh-agent | sed 's/^echo/#echo/' > ${SSH_ENV}
@@ -226,3 +256,4 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
+
