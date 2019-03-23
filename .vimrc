@@ -23,17 +23,12 @@ syntax on
 
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
-nnoremap <leader>l gt
-nnoremap <leader>h gT
 nnoremap Q @
 nnoremap @ :x<CR>
 nnoremap <C-j> i<CR><ESC>
 nnoremap <leader>p cw<C-r>0<ESC>
 nnoremap <silent><C-n> :noh<CR>
 nnoremap Y y$
-nnoremap s :Vexplore
-nnoremap S :tabe.<CR>
-nnoremap <leader>j <C-W>T
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -44,9 +39,6 @@ nnoremap j gj
 nnoremap k gk
 nnoremap n nzzzv
 nnoremap N Nzzzv
-
-inoremap <C-e> <ESC>%%a
-inoremap <C-b> <CR>
 
 cnoremap <C-o> <CR>
 
