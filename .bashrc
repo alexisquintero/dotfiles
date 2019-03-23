@@ -83,8 +83,18 @@ branchStatus () {
   then
     MAINBRANCH=$DEVELOP
   fi
-  UPSTREAMMAIN="$REMOTE/$MAINBRANCH"
   CURRENTUPSTREAM="$REMOTE/$CURRENT"
+  #Check if current branch exists upstream
+  if ! [ `git branch -r | egrep "^[[:space:]]+${CURRENTUPSTREAM}$"` ]
+  then
+    CURRENTUPSTREAM=$CURRENT
+  fi
+  UPSTREAMMAIN="$REMOTE/$MAINBRANCH"
+  #Check if main branch exists upstream
+  if ! [ `git branch -r | egrep "^[[:space:]]+${UPSTREAMMAIN}$"` ]
+  then
+    UPSTREAMMAIN=$MAINBRANCH
+  fi
 
   RPMAINBRANCH=$(git rev-parse $MAINBRANCH)
   RPUPSTREAMMAIN=$(git rev-parse $UPSTREAMMAIN)
@@ -109,7 +119,7 @@ branchStatus () {
     else
       #Ahead
       #Check if current is behind
-      if [ `git log --format='%H' | egrep "^${RPCURRENTUPSTREAM}$"`]
+      if [ `git log --format='%H' | egrep "^${RPCURRENTUPSTREAM}$"` ]
       then
         #NOT behind
         OUTPUT+=$CURRENTAHEADCHAR
