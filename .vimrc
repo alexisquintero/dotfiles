@@ -58,7 +58,6 @@ Plug 'https://github.com/yuttie/comfortable-motion.vim.git'
 Plug 'vim-airline/vim-airline'
 Plug 'https://github.com/tpope/vim-fugitive.git'
 Plug 'derekwyatt/vim-scala'
-" Plug 'https://github.com/ludovicchabant/vim-gutentags.git'
 call plug#end()
 
 colorscheme spacegray
