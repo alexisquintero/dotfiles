@@ -61,17 +61,11 @@ let g:netrw_list_hide= '\(^\|\s\s\)\zs\.\S\+'
 nnoremap <F12> :!ctags -R -f ./.git/tags .
 
 call plug#begin('~/.vim/plugged')
-" Spacegray theme
 Plug 'https://github.com/ajh17/Spacegray.vim.git'
-" better scrolling
 Plug 'https://github.com/yuttie/comfortable-motion.vim.git'
-" airline status bar
 Plug 'vim-airline/vim-airline'
-" Git wrapeer
 Plug 'https://github.com/tpope/vim-fugitive.git'
-" Scala
 Plug 'derekwyatt/vim-scala'
-" Tags
 " Plug 'https://github.com/ludovicchabant/vim-gutentags.git'
 call plug#end()
 
