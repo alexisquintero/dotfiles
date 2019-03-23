@@ -66,8 +66,16 @@ branchStatus () {
   DETACHEDCOLOR="\001\e[91m\002"
 
   OUTPUT=""
+  #CHeck if it's a new repository
+  if [[ -z `git branch` ]]
+  then
+    OUTPUT+=$MAINCHAR
+    echo -e $OUTPUT
+    return
+  fi
+
   #Check if detached
-  if [[ -n `git branch -v | grep "detached"` ]]
+  if [[ -n `git branch -v | grep "HEAD detached at"` ]]
   then
     OUTPUT+=$DETACHEDCOLOR$DETACHEDCHAR
     echo -e $OUTPUT
