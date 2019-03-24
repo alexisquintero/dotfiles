@@ -75,7 +75,7 @@ branchStatus () {
   fi
 
   #Check if detached
-  if [[ -n `git branch -v | grep "HEAD detached at"` ]]
+  if [[ -n `git branch -v | grep "HEAD detached "` ]]
   then
     OUTPUT+=$DETACHEDCOLOR$DETACHEDCHAR
     echo -e $OUTPUT
