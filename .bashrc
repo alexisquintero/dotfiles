@@ -78,18 +78,18 @@ branchStatus () {
     return
   fi
 
-  #Check if detached
-  if [[ -n `git branch -v | grep "HEAD detached "` ]]
-  then
-    OUTPUT+=$DETACHEDCOLOR$DETACHEDCHAR
-    echo -e $OUTPUT
-    return
-  fi
-
   #Rebase in progress
   if [[ -n `git branch -v | grep "no branch, rebasing"` ]]
   then
     OUTPUT+=$REBASECHAR
+    echo -e $OUTPUT
+    return
+  fi
+
+  #Check if detached
+  if [[ -n `git branch -v | grep "HEAD detached "` ]]
+  then
+    OUTPUT+=$DETACHEDCOLOR$DETACHEDCHAR
     echo -e $OUTPUT
     return
   fi
