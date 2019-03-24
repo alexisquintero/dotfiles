@@ -84,7 +84,7 @@ branchStatus () {
   fi
 
   #Rebase in progress
-  if [[ -n `git branch -v | grep "no branch, rebasing" ]]
+  if [[ -n `git branch -v | grep "no branch, rebasing"` ]]
   then
     OUTPUT+=$REBASECHAR
     echo -e $OUTPUT
