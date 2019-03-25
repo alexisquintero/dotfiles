@@ -1,9 +1,7 @@
 #bg: #0E1111
 #fg: #FDF498
 #font: DejaVu Sans Mono 8
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -99,7 +97,7 @@ branchStatus () {
 
   MAINBRANCH="master"
   DEVELOP="develop"
-  if [ `git branch | egrep "^[*]{0,1}[[:space:]]+${DEVELOP}$"` ]
+  if [[ -n `git branch | egrep "^[*]{0,1}[[:space:]]+${DEVELOP}$"` ]]
   then
     MAINBRANCH=$DEVELOP
   fi
@@ -286,4 +284,3 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
-
