@@ -167,6 +167,7 @@ insideGit () {
   if git rev-parse --git-dir > /dev/null 2>&1; then
     #echo "inside git repo"
     echo $(branchStatus)
+    git fetch > /dev/null 2>&1 &
   else
     echo '⬥'
   fi
