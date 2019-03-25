@@ -154,7 +154,7 @@ branchStatus () {
     return
   fi
   #Check if main is up to date
-  if [ $RPMAINBRANCH = $RPUPSTREAMMAIN ]
+  if [[ -n `git log --format='%H' | grep ${RPUPSTREAMMAIN}` ]]
   then
     OUTPUT+=$MAINCHAR
   else
