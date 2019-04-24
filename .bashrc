@@ -285,3 +285,5 @@ if [ -f "${SSH_ENV}" ]; then
 else
     start_agent;
 fi
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
