@@ -13,8 +13,8 @@ do
   printf "${NORMAL_COLOR}\nComparing $FPATH and $FILE\n"
   if [ -f $FPATH ]
   then
-    VIM_DIFF=$(git diff --color -U0 $FPATH $FILE) 
-  else 
+    VIM_DIFF=$(git diff --color -U0 $FPATH $FILE)
+  else
     VIM_DIFF="File not found"
   fi
   if [ -n "$VIM_DIFF" ]
@@ -30,3 +30,31 @@ do
     printf "${NORMAL_COLOR}\nUp to date\n"
   fi
 done
+
+if [ -d ~/.config/i3/ ]; then
+  cd ~/.config/i3/
+  if [ -d i3scripts/ ]; then
+    echo "updating i3scripts"
+    cd i3scripts/
+    git reset --hard
+    git pull -r
+  else
+    echo "cloning i3scripts"
+    mkdir i3scripts
+    cd i3scripts/
+    git init
+    git remote add origin https://github.com/alexisquintero/i3scripts
+    git fetch
+    git checkout -t origin/master
+  fi
+  chmod +x ~/.config/i3/i3scripts/autoname_workspaces.py
+  chmod +x ~/.config/i3/i3scripts/util.py
+else
+  echo "i3config doesn't exist"
+fi
+
+sudo apt-get update
+sudo apt-get install xorg
+sudo apt-get install fonts-font-awesome
+pip3 install i3ipc
+pip3 install fontawesome
