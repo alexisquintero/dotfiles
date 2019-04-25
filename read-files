@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FILES=(.bashrc .ctags .gitconfig config i3status init.vim)
-PATHS=(~/.bashrc ~/.ctags ~/.gitconfig ~/.config/i3/config ~/.config/ie/i3status ~/.config/nvim/init.vim)
+PATHS=(~/.bashrc ~/.ctags ~/.gitconfig ~/.config/i3/config ~/.config/i3/i3status ~/.config/nvim/init.vim)
 COUNT=$((${#FILES[@]} - 1))
 NORMAL_COLOR=$(tput sgr0)
 
