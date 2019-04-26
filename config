@@ -17,8 +17,6 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
-bindsym $mod+Shift+n move container to workspace next
-bindsym $mod+Shift+p move container to workspace prev
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+v split h
