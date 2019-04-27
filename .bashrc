@@ -1,5 +1,5 @@
-#bg: #0E1111
-#fg: #FDF498
+#bg: #08141E
+#fg: #F8FA90
 #font: DejaVu Sans Mono 8
 
 # If not running interactively, don't do anything
@@ -55,14 +55,14 @@ fi
 
 branchStatus () {
   MAINCHAR="❙"
-  MAINBEHINDCHAR="❰"
-  MAINAHEADCHAR="❱"
+  MAINBEHINDCHAR=""
+  MAINAHEADCHAR=""
   CURRENTCHAR="❙"
-  CURRENTBEHINDCHAR="❰"
-  CURRENTAHEADCHAR="❱"
-  DETACHEDCHAR="⥈"
-  PROBLEMCHAR="❗"
-  REBASECHAR="❔"
+  CURRENTBEHINDCHAR=""
+  CURRENTAHEADCHAR=""
+  DETACHEDCHAR=""
+  PROBLEMCHAR=""
+  REBASECHAR=""
 
   EDITEDFILESCOLOR="\001\e[32m\002"
   DETACHEDCOLOR="\001\e[91m\002"
@@ -173,6 +173,8 @@ insideGit () {
   fi
 }
 
+KHAKI="\001\e[38;2;195;163;138m\002"
+
 LYELLOW="\[\e[93m\]"
 
 BOLD="\[\e[1m\]"
@@ -181,7 +183,11 @@ NORMAL="\[\e[21m\]"
 RESET="\[\e[0m\]"
 
 if [ "$color_prompt" = yes ]; then
+  if [[ "$TERM" =~ 256color ]]; then
+    PS1="${KHAKI}${BOLD}\u@\W${BOLD} \$(insideGit) ${RESET}"
+  else
     PS1="${LYELLOW}${BOLD}\u@\W${BOLD} \$(insideGit) ${RESET}"
+  fi
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
