@@ -1,7 +1,7 @@
 #!/bin/bash
 
-FILES=(.bashrc   .ctags   .gitconfig   config              i3status              init.vim                dunstrc         )
-PATHS=(~/.bashrc ~/.ctags ~/.gitconfig ~/.config/i3/config ~/.config/i3/i3status ~/.config/nvim/init.vim ~/.config/dunst/)
+FILES=(.bashrc .ctags .gitconfig config        i3status      init.vim        dunstrc         )
+PATHS=(~/      ~/     ~/         ~/.config/i3/ ~/.config/i3/ ~/.config/nvim/ ~/.config/dunst/)
 COUNT=$((${#FILES[@]} - 1))
 NORMAL_COLOR=$(tput sgr0)
 
@@ -9,9 +9,10 @@ for i in $(seq 0 $COUNT)
 do
   FILE=${FILES[i]}
   FPATH=${PATHS[i]}
+  FULLPATH=$FPATH$FILE
   printf "*********************************************"
-  printf "${NORMAL_COLOR}\nComparing $FILE and $FPATH\n"
-  VIM_DIFF=$(git diff --color -U0 $FILE $FPATH)
+  printf "${NORMAL_COLOR}\nComparing $FILE and $FULLPATH\n"
+  VIM_DIFF=$(git diff --color -U0 $FILE $FULLPATH)
   if [ -n "$VIM_DIFF" ]
   then
     printf "${NORMAL_COLOR}\n$VIM_DIFF\n"
@@ -19,7 +20,7 @@ do
     read ANSWER
     if [ "$ANSWER" == "y" ]
     then
-      cp $FPATH $FILE
+      cp $FULLPATH $FILE
     fi
   else
     printf "${NORMAL_COLOR}\nUp to date\n"
