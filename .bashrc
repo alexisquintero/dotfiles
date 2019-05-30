@@ -55,20 +55,20 @@ fi
 
 branchStatus () {
   MAINCHAR="❙"
-  MAINBEHINDCHAR=""
-  MAINAHEADCHAR=""
+  MAINBEHINDCHAR="❰"
+  MAINAHEADCHAR="❱"
   CURRENTCHAR="❙"
-  CURRENTBEHINDCHAR=""
-  CURRENTAHEADCHAR=""
-  DETACHEDCHAR=""
-  PROBLEMCHAR=""
-  REBASECHAR=""
+  CURRENTBEHINDCHAR="❰"
+  CURRENTAHEADCHAR="❱"
+  DETACHEDCHAR="━"
+  PROBLEMCHAR="𝌐"
+  REBASECHAR="?"
 
   EDITEDFILESCOLOR="\001\e[32m\002"
   DETACHEDCOLOR="\001\e[91m\002"
 
   OUTPUT=""
-  #CHeck if it's a new repository
+  #Check if it's a new repository
   if [[ -z `git branch` ]]
   then
     OUTPUT+=$MAINCHAR
