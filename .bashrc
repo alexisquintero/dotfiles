@@ -246,8 +246,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
-stty -ixon # Disable ctrl-s and ctrl-q.
-shopt -s autocd #Allows you to cd into directory merely by typing the directory name.
+stty -ixon                          # Disable ctrl-s and ctrl-q.
+shopt -s autocd                     # Allows you to cd into directory merely by typing the directory name.
+shopt -s cdspell                    # autocorrects cd misspellings
+shopt -s checkwinsize               # update the value of LINES and COLUMNS after each command if altered
+
+PROMPT_COMMAND='[[ ${__new_wd:=$PWD} != $PWD ]] && la; __new_wd=$PWD'
+
 VISUAL=nvim
 export VISUAL EDITOR=nvim
 export EDITOR
@@ -255,6 +260,7 @@ export EDITOR
 alias v='nvim'
 alias g='git'
 alias r='ranger'
+alias cdc='cd ~/Documents/Ib5k/code/'
 source /usr/share/bash-completion/completions/git
 __git_complete g _git
 
@@ -293,3 +299,7 @@ else
 fi
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

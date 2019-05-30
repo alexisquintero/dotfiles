@@ -43,6 +43,9 @@ bindsym $mod+x exec firefox
 bindsym $mod+y exec "i3lock -c 000000 ;xset dpms force off"
 bindsym $mod+z exec slack
 
+bindsym $mod+F8 exec "~/.config/i3/clojureTerminals"
+bindsym $mod+F12 exec "amixer set Headphone playback 50% unmute"
+
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
