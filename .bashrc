@@ -92,21 +92,43 @@ branchStatus () {
     return
   fi
 
-  REMOTE=$(git remote)
+  REMOTES=$(git remote)
+  FLAG=true
+  REMOTE=""
+  for remote in $REMOTES
+  do
+    while [ "$FLAG" == "true" ]
+    do
+      REMOTE=$remote
+      FLAG=false
+    done
+  done
   CURRENT=$(git symbolic-ref --short -q HEAD)
 
   MAINBRANCH="master"
   DEVELOP="develop"
+  #Check if develop exists
   if [[ -n `git branch | egrep "^[*]{0,1}[[:space:]]+${DEVELOP}$"` ]]
   then
     MAINBRANCH=$DEVELOP
+  #Check if master exists
+  elif [[ -z `git branch | egrep "^[*]{0,1}[[:space:]]+${MAINBRANCH}$"` ]]
+  then
+    MAINBRANCH=""
   fi
-  CURRENTUPSTREAM="$REMOTE/$CURRENT"
+
+  if [[ -z $MAINBRANCH ]]
+  then
+    CURRENTUPSTREAM=$CURRENT
+  else
+    CURRENTUPSTREAM="$REMOTE/$CURRENT"
+  fi
   #Check if current branch exists upstream
   if ! [ `git branch -r | egrep "^[[:space:]]+${CURRENTUPSTREAM}$"` ]
   then
     CURRENTUPSTREAM=$CURRENT
   fi
+
   UPSTREAMMAIN="$REMOTE/$MAINBRANCH"
   #Check if main branch exists upstream
   if ! [ `git branch -r | egrep "^[[:space:]]+${UPSTREAMMAIN}$"` ]
@@ -114,8 +136,6 @@ branchStatus () {
     UPSTREAMMAIN=$MAINBRANCH
   fi
 
-  RPMAINBRANCH=$(git rev-parse $MAINBRANCH)
-  RPUPSTREAMMAIN=$(git rev-parse $UPSTREAMMAIN)
   RPCURRENT=$(git rev-parse $CURRENT)
   RPCURRENTUPSTREAM=$(git rev-parse $CURRENTUPSTREAM)
 
@@ -148,11 +168,15 @@ branchStatus () {
     fi
   fi
   #Check current != main
-  if [ $CURRENT = $MAINBRANCH ]
+  if  [[ -z $MAINBRANCH ]] || [ $CURRENT = $MAINBRANCH ]
   then
     echo -e $OUTPUT
     return
   fi
+
+  RPMAINBRANCH=$(git rev-parse $MAINBRANCH)
+  RPUPSTREAMMAIN=$(git rev-parse $UPSTREAMMAIN)
+
   #Check if main is up to date
   if [[ -n `git log --format='%H' | grep ${RPUPSTREAMMAIN}` ]]
   then
@@ -303,3 +327,9 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+change_nvm_version () {
+  nvm use
+}
+
+export -f change_nvm_version
