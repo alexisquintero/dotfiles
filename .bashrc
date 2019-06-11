@@ -1,6 +1,4 @@
-#bg: #08141E
-#fg: #F8FA90
-#font: DejaVu Sans Mono 8
+#bg: #08141E              #fg: #F8FA90                  #font: DejaVu Sans Mono 8
 
 # If not running interactively, don't do anything
 case $- in
@@ -12,23 +10,14 @@ esac
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+stty -ixon                          # Disable ctrl-s and ctrl-q.
+shopt -s autocd                     # Allows you to cd into directory merely by typing the directory name.
+shopt -s cdspell                    # autocorrects cd misspellings
+shopt -s checkwinsize               # update the value of LINES and COLUMNS after each command if altered
+shopt -s histappend                 # append to the history file, don't overwrite it
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -40,171 +29,7 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-    color_prompt=yes
-  else
-    color_prompt=
-  fi
-fi
-
-branchStatus () {
-  MAINCHAR="❙"
-  MAINBEHINDCHAR="❰"
-  MAINAHEADCHAR="❱"
-  CURRENTCHAR="❙"
-  CURRENTBEHINDCHAR="❰"
-  CURRENTAHEADCHAR="❱"
-  DETACHEDCHAR="━"
-  PROBLEMCHAR="𝌐"
-  REBASECHAR="?"
-
-  EDITEDFILESCOLOR="\001\e[32m\002"
-  DETACHEDCOLOR="\001\e[91m\002"
-
-  OUTPUT=""
-  #Check if it's a new repository
-  if [[ -z `git branch` ]]
-  then
-    OUTPUT+=$MAINCHAR
-    echo -e $OUTPUT
-    return
-  fi
-
-  #Rebase in progress
-  if [[ -n `git branch -v | grep "no branch, rebasing"` ]]
-  then
-    OUTPUT+=$REBASECHAR
-    echo -e $OUTPUT
-    return
-  fi
-
-  #Check if detached
-  if [[ -n `git branch -v | grep "HEAD detached "` ]]
-  then
-    OUTPUT+=$DETACHEDCOLOR$DETACHEDCHAR
-    echo -e $OUTPUT
-    return
-  fi
-
-  REMOTES=$(git remote)
-  FLAG=true
-  REMOTE=""
-  for remote in $REMOTES
-  do
-    while [ "$FLAG" == "true" ]
-    do
-      REMOTE=$remote
-      FLAG=false
-    done
-  done
-  CURRENT=$(git symbolic-ref --short -q HEAD)
-
-  MAINBRANCH="master"
-  DEVELOP="develop"
-  #Check if develop exists
-  if [[ -n `git branch | egrep "^[*]{0,1}[[:space:]]+${DEVELOP}$"` ]]
-  then
-    MAINBRANCH=$DEVELOP
-  #Check if master exists
-  elif [[ -z `git branch | egrep "^[*]{0,1}[[:space:]]+${MAINBRANCH}$"` ]]
-  then
-    MAINBRANCH=""
-  fi
-
-  if [[ -z $MAINBRANCH ]]
-  then
-    CURRENTUPSTREAM=$CURRENT
-  else
-    CURRENTUPSTREAM="$REMOTE/$CURRENT"
-  fi
-  #Check if current branch exists upstream
-  if ! [ `git branch -r | egrep "^[[:space:]]+${CURRENTUPSTREAM}$"` ]
-  then
-    CURRENTUPSTREAM=$CURRENT
-  fi
-
-  UPSTREAMMAIN="$REMOTE/$MAINBRANCH"
-  #Check if main branch exists upstream
-  if ! [ `git branch -r | egrep "^[[:space:]]+${UPSTREAMMAIN}$"` ]
-  then
-    UPSTREAMMAIN=$MAINBRANCH
-  fi
-
-  RPCURRENT=$(git rev-parse $CURRENT)
-  RPCURRENTUPSTREAM=$(git rev-parse $CURRENTUPSTREAM)
-
-  #Check if there are edited files
-  if [[ ! -z $(git status -s) ]]
-  then
-    OUTPUT+=$EDITEDFILESCOLOR
-  fi
-  #Check if current is up to date
-  if [ $RPCURRENT = $RPCURRENTUPSTREAM ]
-  then
-    OUTPUT+=$CURRENTCHAR
-  else
-    #Check if current is ahead
-    if [ `git log --format='%H' ${CURRENTUPSTREAM} | egrep "^${RPCURRENT}$"` ]
-    then
-      #NOT ahead
-      OUTPUT+=$CURRENTBEHINDCHAR
-    else
-      #Ahead
-      #Check if current is behind
-      if [ `git log --format='%H' | egrep "^${RPCURRENTUPSTREAM}$"` ]
-      then
-        #NOT behind
-        OUTPUT+=$CURRENTAHEADCHAR
-      else
-        #Behind
-        OUTPUT+=$PROBLEMCHAR
-      fi
-    fi
-  fi
-  #Check current != main
-  if  [[ -z $MAINBRANCH ]] || [ $CURRENT = $MAINBRANCH ]
-  then
-    echo -e $OUTPUT
-    return
-  fi
-
-  RPMAINBRANCH=$(git rev-parse $MAINBRANCH)
-  RPUPSTREAMMAIN=$(git rev-parse $UPSTREAMMAIN)
-
-  #Check if main is up to date
-  if [[ -n `git log --format='%H' | grep ${RPUPSTREAMMAIN}` ]]
-  then
-    OUTPUT+=$MAINCHAR
-  else
-    OUTPUT+=$MAINBEHINDCHAR
-  fi
-  echo -e $OUTPUT
-}
-
-insideGit () {
-  if git rev-parse --git-dir > /dev/null 2>&1; then
-    #echo "inside git repo"
-    echo $(branchStatus)
-    git fetch > /dev/null 2>&1 &
-  else
-    echo '⬥'
-  fi
-}
-
-KHAKI="\001\e[38;2;195;163;138m\002"
-
-LYELLOW="\[\e[93m\]"
-
-BOLD="\[\e[1m\]"
-NORMAL="\[\e[21m\]"
-
-RESET="\[\e[0m\]"
+. ~/.config/utils/PS1.sh
 
 if [ "$color_prompt" = yes ]; then
   if [[ "$TERM" =~ 256color ]]; then
@@ -215,7 +40,6 @@ if [ "$color_prompt" = yes ]; then
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
-unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -230,18 +54,11 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -270,11 +87,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-stty -ixon                          # Disable ctrl-s and ctrl-q.
-shopt -s autocd                     # Allows you to cd into directory merely by typing the directory name.
-shopt -s cdspell                    # autocorrects cd misspellings
-shopt -s checkwinsize               # update the value of LINES and COLUMNS after each command if altered
-
+# Calls `la` when changing directory
 PROMPT_COMMAND='[[ ${__new_wd:=$PWD} != $PWD ]] && la; __new_wd=$PWD'
 
 VISUAL=nvim
@@ -300,36 +113,10 @@ alias headphone='amixer set Headphone playback 50% unmute'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-SSH_ENV=$HOME/.ssh/environment
-
-# start the ssh-agent
-start_agent () {
-    echo "Initializing new SSH agent..."
-    # spawn ssh-agent
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > ${SSH_ENV}
-    echo succeeded
-    chmod 600 ${SSH_ENV}
-    . ${SSH_ENV} > /dev/null
-    /usr/bin/ssh-add
-}
-
-if [ -f "${SSH_ENV}" ]; then
-     . ${SSH_ENV} > /dev/null
-     ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-        start_agent;
-    }
-else
-    start_agent;
-fi
+. ~/.config/utils/ssh.sh
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-change_nvm_version () {
-  nvm use
-}
-
-export -f change_nvm_version

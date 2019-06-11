@@ -3,26 +3,26 @@
 FILES=(.bashrc .ctags .gitconfig config        i3status      init.vim        dunstrc         )
 PATHS=(~/      ~/     ~/         ~/.config/i3/ ~/.config/i3/ ~/.config/nvim/ ~/.config/dunst/)
 COUNT=$((${#FILES[@]} - 1))
-NORMAL_COLOR=$(tput sgr0)
 
 for i in $(seq 0 $COUNT)
 do
   FILE=${FILES[i]}
   FPATH=${PATHS[i]}
   FULLPATH=$FPATH$FILE
-  printf "*********************************************"
-  printf "${NORMAL_COLOR}\nComparing $FILE and $FULLPATH\n"
+  echo -e "*********************************************"
+  echo -e "\nComparing $FILE and $FULLPATH\n"
   VIM_DIFF=$(git diff --color -U0 $FILE $FULLPATH)
   if [ -n "$VIM_DIFF" ]
   then
-    printf "${NORMAL_COLOR}\n$VIM_DIFF\n"
-    printf "\nGit?(y/n)\n"
+    echo -e "\n$VIM_DIFF\n"
+    echo -e "\nGit?(y/n)\n"
     read ANSWER
     if [ "$ANSWER" == "y" ]
     then
       cp $FULLPATH $FILE
     fi
   else
-    printf "${NORMAL_COLOR}\nUp to date\n"
+    echo -e "\nUp to date\n"
   fi
+  echo -e "\n\n\n"
 done
