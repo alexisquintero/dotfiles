@@ -19,6 +19,8 @@ shopt -s cdspell                    # autocorrects cd misspellings
 shopt -s checkwinsize               # update the value of LINES and COLUMNS after each command if altered
 shopt -s histappend                 # append to the history file, don't overwrite it
 
+PROMPT_COMMAND='[[ ${__new_wd:=$PWD} != $PWD ]] && la; __new_wd=$PWD'   # Calls `la` when changing directory
+
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
@@ -63,19 +65,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -87,8 +76,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Calls `la` when changing directory
-PROMPT_COMMAND='[[ ${__new_wd:=$PWD} != $PWD ]] && la; __new_wd=$PWD'
 
 VISUAL=nvim
 export VISUAL EDITOR=nvim
@@ -96,11 +83,10 @@ export EDITOR
 
 alias v='nvim'
 alias g='git'
-alias r='ranger'
-alias cdc='cd ~/Documents/Ib5k/code/'
 source /usr/share/bash-completion/completions/git
 __git_complete g _git
-
+alias r='ranger'
+alias cdc='cd ~/Documents/Ib5k/code/'
 alias mute='amixer -D pulse set Master 1+ toggle'
 alias master50='amixer set Master 75%'
 alias muteSpeaker='amixer set Front 0%'
