@@ -1,12 +1,17 @@
 #!/bin/bash
 
 function usage() {
-  echo -e "\tNo parameters    Only link config files\n
-\t-i | --install   Link, install, clone and update\n
-\t-h | --help      Literally this"
+  echo -e "
+\tNo parameters       Link config files
+\t-i | --install      Previous actions AND install, clone and update
+\t-r | --repository   Previous actions AND add repositories
+\t-y | --yes          YES! YES! YES! dot JoJo
+\t-h | --help         Literally this\n"
 }
 
 INSTALL=false
+REPOSITORY=false
+YES=false
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -14,6 +19,10 @@ while [ "$1" != "" ]; do
 #                                filename=$1
 #                                ;;
         -i | --install )        INSTALL=true
+                                ;;
+        -r | --repository )     INSTALL=true; REPOSITORY=true
+                                ;;
+        -y | --yes )            YES=true
                                 ;;
         -h | --help )           usage
                                 exit
@@ -39,7 +48,12 @@ do
   # TODO: Check if a symlink exists and points to the correct location
   # TODO: Create folders if necesary
   printf "\nSymlink $FILE?(y/n)\n"
-  read ANSWER
+  if [ "$YES" = "false" ]
+  then
+    read ANSWER
+  else
+    ANSWER="y"
+  fi
   if [ "$ANSWER" == "y" ]
   then
     ln -sv "$PWD/$FILE" $FPATH
@@ -88,7 +102,11 @@ else
   echo "i3config doesn't exist"
 fi
 
-sudo add-apt-repository ppa:papirus/papirus
+if [ "$REPOSITORY" = "true" ]
+then
+  sudo add-apt-repository ppa:papirus/papirus
+fi
+
 sudo apt-get update
 sudo apt-get install silversearcher-ag
 sudo apt-get install xorg
