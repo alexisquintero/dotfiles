@@ -1,5 +1,29 @@
 #!/bin/bash
 
+function usage() {
+  echo -e "\tNo parameters    Only copy config files\n
+\t-i | --install   Copy, install, clone and update\n
+\t-h | --help      Literally this"
+}
+
+INSTALL=false
+
+while [ "$1" != "" ]; do
+    case $1 in
+#        -f | --file )           shift
+#                                filename=$1
+#                                ;;
+        -i | --install )        INSTALL=true
+                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
+    esac
+    shift
+done
+
 FILES=(.bashrc .ctags .gitconfig config        i3status      init.vim        dunstrc         )
 PATHS=(~/      ~/     ~/         ~/.config/i3/ ~/.config/i3/ ~/.config/nvim/ ~/.config/dunst/)
 COUNT=$((${#FILES[@]} - 1))
@@ -32,6 +56,11 @@ do
     printf "${NORMAL_COLOR}\nUp to date\n"
   fi
 done
+
+if [ "$INSTALL" = "false" ]
+then
+  exit
+fi
 
 if [ -d ~/.vim/ ]; then
   echo "Updating .vim"
