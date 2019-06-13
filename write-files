@@ -24,8 +24,8 @@ while [ "$1" != "" ]; do
     shift
 done
 
-FILES=(.bashrc .ctags .gitconfig config        i3status      init.vim        dunstrc         )
-PATHS=(~/      ~/     ~/         ~/.config/i3/ ~/.config/i3/ ~/.config/nvim/ ~/.config/dunst/)
+FILES=(.bashrc .gitconfig config        i3status      init.vim        dunstrc         )
+PATHS=(~/      ~/         ~/.config/i3/ ~/.config/i3/ ~/.config/nvim/ ~/.config/dunst/)
 COUNT=$((${#FILES[@]} - 1))
 NORMAL_COLOR=$(tput sgr0)
 
