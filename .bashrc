@@ -8,8 +8,7 @@ esac
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
-
+HISTCONTROL=ignoredups
 HISTSIZE=1000
 HISTFILESIZE=2000
 
@@ -28,13 +27,13 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+    xterm-color|*-256color|*-kitty) color_prompt=yes;;
 esac
 
 . ~/.config/utils/PS1.sh
 
 if [ "$color_prompt" = yes ]; then
-  if [[ "$TERM" =~ 256color ]]; then
+  if [[ "$TERM" =~ 256color ]] || [[ "$TERM" =~ kitty ]]; then
     PS1="${KHAKI}${BOLD}\u@\W${BOLD} \$(insideGit) ${RESET}"
   else
     PS1="${LYELLOW}${BOLD}\u@\W${BOLD} \$(insideGit) ${RESET}"
@@ -42,15 +41,6 @@ if [ "$color_prompt" = yes ]; then
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -65,9 +55,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+# enable programmable completion features (you don't need to enable this, if it's already enabled in /etc/bash.bashrc
+# and /etc/profile sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
