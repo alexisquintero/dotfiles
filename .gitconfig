@@ -3,7 +3,7 @@
 	br = branch
 	s = status
 	c = commit
-	l = log
+	l = log --pretty=format:'%C(yellow)%h %Cred%ad %<(20[ltrunc]) %Cblue%an%Cgreen%d %Creset%s' --date=short
 	f = fetch
 	gud = commit --amend --no-edit
 	r = rebase

@@ -107,6 +107,7 @@ then
   sudo add-apt-repository ppa:papirus/papirus
 fi
 
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin # Keeteh
 sudo apt-get update
 sudo apt-get install silversearcher-ag
 sudo apt-get install xorg
