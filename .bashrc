@@ -65,10 +65,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-VISUAL=nvim
-export VISUAL EDITOR=nvim
-export EDITOR
+export VISUAL=vim EDITOR=vim
 
 alias v='nvim'
 alias g='git'
