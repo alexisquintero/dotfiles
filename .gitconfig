@@ -12,3 +12,6 @@
 [user]
 	email = alexis_quintero@hotmail.com.ar
 	name = Alexis Quintero
+	signingkey = A62ADDC888FE4663
+[commit]
+	gpgsign = true
