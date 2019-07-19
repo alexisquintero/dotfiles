@@ -117,3 +117,12 @@ bar {
   }
   status_command i3status --config ~/.config/i3/i3status
 }
+
+# class                 border  backgr. text    indicator child_border  #  custom colors table
+client.focused          #4e495f #4e495f #c3a38a #2e9ef4   #285577       # | x | x | x |   |   |
+client.focused_inactive #4e495f #4e495f #c3a38a #484e50   #5f676a       # | x | x | x |   |   |
+client.unfocused        #0f2a3f #0f2a3f #816271 #292d2e   #222222       # | x | x | x |   |   |
+client.urgent           #816271 #816271 #0E1111 #900000   #900000       # | x | x | x |   |   |
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c       # |   |   |   |   |   |
+
+client.background       #ffffff
