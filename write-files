@@ -33,30 +33,56 @@ while [ "$1" != "" ]; do
     shift
 done
 
-FILES=(.bashrc .gitconfig config        i3status      init.vim        dunstrc          kitty.conf      .inputrc)
-PATHS=(~/      ~/         ~/.config/i3/ ~/.config/i3/ ~/.config/nvim/ ~/.config/dunst/ ~/.config/kitty ~/      )
+FILES=(.bashrc .gitconfig config        i3status      init.vim        dunstrc          kitty.conf       .inputrc)
+PATHS=(~/      ~/         ~/.config/i3/ ~/.config/i3/ ~/.config/nvim/ ~/.config/dunst/ ~/.config/kitty/ ~/      )
 COUNT=$((${#FILES[@]} - 1))
-NORMAL_COLOR=$(tput sgr0)
 
 for i in $(seq 0 $COUNT)
 do
   FILE=${FILES[i]}
   FPATH=${PATHS[i]}
   FULLPATH=$FPATH$FILE
+  FILEEXISTS=true
+  ANSWER="n"
+  CORRECTTARGETPATH="$PWD""/""$FILE"
+  CURRENTSYMLINKTARGET=""
+
+
+  if [ ! -f "$FULLPATH" ]
+  then
+    FILEEXISTS=false
+  fi
+
+  if [ -L "$FULLPATH" ]
+  then
+    CURRENTSYMLINKTARGET="$(readlink -f "$FULLPATH")"
+  fi
+
   printf "*********************************************"
   # TODO: Check if file exists and offer to delete file and create symlink
-  # TODO: Check if a symlink exists and points to the correct location
-  # TODO: Create folders if necesary
-  printf "\nSymlink $FILE?(y/n)\n"
-  if [ "$YES" = "false" ]
+
+  if [ ! -z "$CURRENTSYMLINKTARGET" ]
   then
-    read ANSWER
+    if [ "$CORRECTTARGETPATH" = "$CURRENTSYMLINKTARGET" ]
+    then
+      printf "\nCorrectly symlinked already"
+      continue
+    else
+      printf "\nCurrent symlink points to %s" "$CURRENTSYMLINKTARGET"
+    fi
+  fi
+
+  printf "\nSymlink %s ?(y/n)\n" "$FILE"
+  if [ "$YES" = "false" ] || [ "$ANSWER" = "y" ]
+  then
+    read -r ANSWER
   else
     ANSWER="y"
   fi
   if [ "$ANSWER" == "y" ]
   then
-    ln -sv "$PWD/$FILE" $FPATH
+    mkdir -p FPATH
+    ln -sv "$PWD/$FILE" "$FPATH"
   fi
 done
 
@@ -67,13 +93,13 @@ fi
 
 if [ -d ~/.vim/ ]; then
   echo "Updating .vim"
-  cd ~/.vim/
+  cd ~/.vim/ || return
   git pull -r
 else
   echo "Cloning .vim"
-  cd ~
+  cd ~ || return
   mkdir .vim
-  cd .vim
+  cd .vim || return
   git init
   git remote add origin https://github.com/alexisquintero/.vim
   git fetch
@@ -81,16 +107,16 @@ else
 fi
 
 if [ -d ~/.config/i3/ ]; then
-  cd ~/.config/i3/
+  cd ~/.config/i3/ || return
   if [ -d i3scripts/ ]; then
     echo "updating i3scripts"
-    cd i3scripts/
+    cd i3scripts/ || return
     git reset --hard
     git pull -r
   else
     echo "cloning i3scripts"
     mkdir i3scripts
-    cd i3scripts/
+    cd i3scripts/ || return
     git init
     git remote add origin https://github.com/alexisquintero/i3scripts
     git fetch
