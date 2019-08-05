@@ -134,6 +134,11 @@ then
 fi
 
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin # Keeteh
+mkdir -p ~/.nvim/nightly
+wget -O ~/.nvim/nvim.appimage https://github.com/neovim/neovim/releases/download/v0.3.8/nvim.appimage
+chmod u+x ~/.nvim/nvim.appimage
+wget -O ~/.nvim/nightly/nvim.appimage https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+chmod u+x ~/.nvim/nightly/nvim.appimage
 sudo apt-get update
 sudo apt-get install silversearcher-ag
 sudo apt-get install xorg
