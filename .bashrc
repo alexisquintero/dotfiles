@@ -6,6 +6,8 @@ case $- in
       *) return;;
 esac
 
+set -o vi
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoredups
@@ -31,6 +33,12 @@ case "$TERM" in
 esac
 
 . ~/.config/utils/PS1.sh
+
+KHAKI="\001\e[38;2;195;163;138m\002"
+LYELLOW="\[\e[93m\]"
+BOLD="\[\e[1m\]"
+NORMAL="\[\e[21m\]"
+RESET="\[\e[0m\]"
 
 if [ "$color_prompt" = yes ]; then
   if [[ "$TERM" =~ 256color ]] || [[ "$TERM" =~ kitty ]]; then
