@@ -20,7 +20,7 @@ shopt -s cdspell                    # autocorrects cd misspellings
 shopt -s checkwinsize               # update the value of LINES and COLUMNS after each command if altered
 shopt -s histappend                 # append to the history file, don't overwrite it
 
-PROMPT_COMMAND='[[ ${__new_wd:=$PWD} != $PWD ]] && la; __new_wd=$PWD'   # Calls `la` when changing directory
+PROMPT_COMMAND='[[ ${__new_wd:=$PWD} != $PWD ]] && l; __new_wd=$PWD'   # Calls `l` when changing directory
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -61,7 +61,7 @@ fi
 
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
+alias l='ls -AF'
 
 # enable programmable completion features (you don't need to enable this, if it's already enabled in /etc/bash.bashrc
 # and /etc/profile sources /etc/bash.bashrc).
