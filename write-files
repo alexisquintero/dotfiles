@@ -42,24 +42,19 @@ do
   FILE=${FILES[i]}
   FPATH=${PATHS[i]}
   FULLPATH=$FPATH$FILE
-  FILEEXISTS=true
   ANSWER="n"
   CORRECTTARGETPATH="$PWD""/""$FILE"
   CURRENTSYMLINKTARGET=""
 
+  printf "*********************************************"
 
   if [ ! -f "$FULLPATH" ]
   then
-    FILEEXISTS=false
-  fi
-
-  if [ -L "$FULLPATH" ]
+    printf "\n%s already exists and will be overwritten if a symlink is created" "$FULLPATH"
+  elif [ -L "$FULLPATH" ]
   then
     CURRENTSYMLINKTARGET="$(readlink -f "$FULLPATH")"
   fi
-
-  printf "*********************************************"
-  # TODO: Check if file exists and offer to delete file and create symlink
 
   if [ -n "$CURRENTSYMLINKTARGET" ]
   then
@@ -82,7 +77,7 @@ do
   if [ "$ANSWER" == "y" ]
   then
     mkdir -p FPATH
-    ln -sv "$PWD/$FILE" "$FPATH"
+    ln -sfv "$PWD/$FILE" "$FPATH"
   fi
 done
 
