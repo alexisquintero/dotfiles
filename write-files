@@ -61,7 +61,7 @@ do
   printf "*********************************************"
   # TODO: Check if file exists and offer to delete file and create symlink
 
-  if [ ! -z "$CURRENTSYMLINKTARGET" ]
+  if [ -n "$CURRENTSYMLINKTARGET" ]
   then
     if [ "$CORRECTTARGETPATH" = "$CURRENTSYMLINKTARGET" ]
     then
@@ -111,7 +111,6 @@ if [ -d ~/.config/i3/ ]; then
   if [ -d i3scripts/ ]; then
     echo "updating i3scripts"
     cd i3scripts/ || return
-    git reset --hard
     git pull -r
   else
     echo "cloning i3scripts"
