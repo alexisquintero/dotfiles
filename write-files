@@ -37,6 +37,35 @@ FILES=(.bashrc .gitconfig config        i3status      init.vim        dunstrc   
 PATHS=(~/      ~/         ~/.config/i3/ ~/.config/i3/ ~/.config/nvim/ ~/.config/dunst/ ~/.config/kitty/ ~/      )
 COUNT=$((${#FILES[@]} - 1))
 
+for RELATIVE_PATH in $(find . -type f -not -path "*/.git/*" | sed -e "s/^\.\///g")
+do
+  SYMLINK_ORIGIN=$HOME"/"$RELATIVE_PATH
+  SYMLINK_DESTINATION=$PWD"/"$RELATIVE_PATH
+  CURRENTSYMLINKTARGET=""
+
+  if [ ! -f "$SYMLINK_ORIGIN" ]
+  then
+    printf "\n%s already exists and will be overwritten if a symlink is created" "$FULLPATH"
+  elif [ -L "$SYMLINK_ORIGIN" ]
+  then
+    CURRENTSYMLINKTARGET="$(readlink -f "$FULLPATH")"
+  fi
+
+  if [ -n "$CURRENTSYMLINKTARGET" ]
+  then
+    if [ "$CORRECTTARGETPATH" = "$CURRENTSYMLINKTARGET" ]
+    then
+      printf "\nCorrectly symlinked already"
+      continue
+    else
+      printf "\nCurrent symlink points to %s" "$CURRENTSYMLINKTARGET"
+    fi
+  fi
+
+done
+
+return
+
 for i in $(seq 0 $COUNT)
 do
   FILE=${FILES[i]}
