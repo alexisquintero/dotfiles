@@ -30,6 +30,20 @@ while [ "$1" != "" ]; do
     shift
 done
 
+for FOLDERS in $(find . -type d -not -path "*/.git/*" -not -name ".git" | sed -e "s/^\.//g")
+do
+  printf "Creating folder %s..." "$FOLDERS"
+  FOLDER_PATH="$HOME""$FOLDERS"
+  if [ -d "$FOLDER_PATH" ]
+  then
+    printf "already exists"
+  else
+    mkdir -p FOLDER_PATH
+    printf "created"
+  fi
+  printf "\n"
+done
+
 for RELATIVE_PATH in $(find . -type f -not -path "*/.git/*" -not -name "write-files" | sed -e "s/^\.//g")
 do
   SYMLINK=$HOME""$RELATIVE_PATH
