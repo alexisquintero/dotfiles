@@ -37,7 +37,7 @@ FILES=(.bashrc .gitconfig config        i3status      init.vim        dunstrc   
 PATHS=(~/      ~/         ~/.config/i3/ ~/.config/i3/ ~/.config/nvim/ ~/.config/dunst/ ~/.config/kitty/ ~/      )
 COUNT=$((${#FILES[@]} - 1))
 
-for RELATIVE_PATH in $(find . -type f -not -path "*/.git/*" | sed -e "s/^\.\///g")
+for RELATIVE_PATH in $(find . -type f -not -path "*/.git/*" -not -name "write-files" | sed -e "s/^\.//g")
 do
   SYMLINK_ORIGIN=$HOME"/"$RELATIVE_PATH
   SYMLINK_DESTINATION=$PWD"/"$RELATIVE_PATH
@@ -64,7 +64,7 @@ do
 
 done
 
-return
+exit
 
 for i in $(seq 0 $COUNT)
 do
