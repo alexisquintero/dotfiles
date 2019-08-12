@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 usage() {
   printf "
@@ -15,9 +15,6 @@ YES=false
 
 while [ "$1" != "" ]; do
     case $1 in
-#        -f | --file )           shift
-#                                filename=$1
-#                                ;;
         -i | --install )        INSTALL=true
                                 ;;
         -r | --repository )     INSTALL=true; REPOSITORY=true
@@ -33,41 +30,49 @@ while [ "$1" != "" ]; do
     shift
 done
 
-FILES=(.bashrc .gitconfig config        i3status      init.vim        dunstrc          kitty.conf       .inputrc)
-PATHS=(~/      ~/         ~/.config/i3/ ~/.config/i3/ ~/.config/nvim/ ~/.config/dunst/ ~/.config/kitty/ ~/      )
-COUNT=$((${#FILES[@]} - 1))
-
-for i in $(seq 0 $COUNT)
+for FOLDERS in $(find . -type d -not -path "*/.git/*" -not -name ".git" | sed -e "s/^\.//g")
 do
-  FILE=${FILES[i]}
-  FPATH=${PATHS[i]}
-  FULLPATH=$FPATH$FILE
-  ANSWER="n"
-  CORRECTTARGETPATH="$PWD""/""$FILE"
+  printf "Creating folder %s..." "$FOLDERS"
+  FOLDER_PATH="$HOME""$FOLDERS"
+  if [ -d "$FOLDER_PATH" ]
+  then
+    printf "already exists"
+  else
+    mkdir -p FOLDER_PATH
+    printf "created"
+  fi
+  printf "\n"
+done
+
+for RELATIVE_PATH in $(find . -type f -not -path "*/.git/*" -not -name "write-files" | sed -e "s/^\.//g")
+do
+  SYMLINK=$HOME""$RELATIVE_PATH
+  ACTUAL_FILE=$PWD""$RELATIVE_PATH
   CURRENTSYMLINKTARGET=""
+  ANSWER="n"
 
-  printf "*********************************************"
+  printf "\nCurrently: %s" "$RELATIVE_PATH"
 
-  if [ ! -f "$FULLPATH" ]
+  if [ ! -f "$SYMLINK" ]
   then
     printf "\n%s already exists and will be overwritten if a symlink is created" "$FULLPATH"
-  elif [ -L "$FULLPATH" ]
+  elif [ -L "$SYMLINK" ]
   then
-    CURRENTSYMLINKTARGET="$(readlink -f "$FULLPATH")"
+    CURRENTSYMLINKTARGET="$(readlink -f "$SYMLINK")"
   fi
 
   if [ -n "$CURRENTSYMLINKTARGET" ]
   then
-    if [ "$CORRECTTARGETPATH" = "$CURRENTSYMLINKTARGET" ]
+    if [ "$ACTUAL_FILE" = "$CURRENTSYMLINKTARGET" ]
     then
-      printf "\nCorrectly symlinked already"
+      printf "\nCorrectly symlinked already\n"
       continue
     else
       printf "\nCurrent symlink points to %s" "$CURRENTSYMLINKTARGET"
     fi
   fi
 
-  printf "\nSymlink %s ?(y/n)\n" "$FILE"
+  printf "\nSymlink %s ?(y/n)\n" "$RELATIVE_PATH"
   if [ "$YES" = "false" ] || [ "$ANSWER" = "y" ]
   then
     read -r ANSWER
@@ -76,8 +81,9 @@ do
   fi
   if [ "$ANSWER" = "y" ]
   then
-    mkdir -p FPATH
-    ln -sfv "$PWD/$FILE" "$FPATH"
+    # mkdir -p FPATH
+    # TODO: Create directories if needed
+    ln -sfv "$ACTUAL_FILE" "$SYMLINK"
   fi
 done
 
