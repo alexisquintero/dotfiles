@@ -147,4 +147,3 @@ pip3 install i3ipc
 pip3 install fontawesome
 sudo apt-get install arc-theme
 sudo apt-get install papirus-icon-theme
-sudo apt-get install lxappearance
