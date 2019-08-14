@@ -78,7 +78,7 @@ export VISUAL=vim EDITOR=vim
 alias v='~/.nvim/nvim.appimage'
 alias vn='~/.nvim/nightly/nvim.appimage'
 alias g='git'
-source /usr/share/bash-completion/completions/git
+[ -f /usr/share/bash-completion/completions/git ] && source /usr/share/bash-completion/completions/git
 __git_complete g _git
 alias r='ranger'
 alias cdc='cd ~/Documents/Ib5k/code/'
