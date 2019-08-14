@@ -81,8 +81,6 @@ do
   fi
   if [ "$ANSWER" = "y" ]
   then
-    # mkdir -p FPATH
-    # TODO: Create directories if needed
     ln -sfv "$ACTUAL_FILE" "$SYMLINK"
   fi
 done
@@ -90,6 +88,21 @@ done
 if [ "$INSTALL" = "false" ]
 then
   exit
+fi
+
+if [ -d ~/.config/utils ]; then
+  echo "Updating utils"
+  cd ~/.config/utils
+  git pull -r
+else
+  echo "Cloning utils"
+  cd ~ || return
+  mkdir -p ~/.config/utils
+  cd ~/.config/utils || return
+  git init
+  git remote add origin https://github.com/alexisquintero/utils.git
+  git fetch
+  git checkout -t origin/master
 fi
 
 if [ -d ~/.vim/ ]; then
