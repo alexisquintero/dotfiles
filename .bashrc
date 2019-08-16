@@ -81,7 +81,6 @@ alias g='git'
 [ -f /usr/share/bash-completion/completions/git ] && source /usr/share/bash-completion/completions/git
 __git_complete g _git
 alias r='ranger'
-alias cdc='cd ~/Documents/Ib5k/code/'
 alias mute='amixer -D pulse set Master 1+ toggle'
 alias master50='amixer set Master 75%'
 alias muteSpeaker='amixer set Front 0%'
@@ -91,6 +90,7 @@ alias hdw='amixer set Headphone 10%-'
 alias sup='amixer set Front 10%+'
 alias sdw='amixer set Front 10%-'
 alias headphone='amixer set Headphone playback 50% unmute'
+[ -f ~/Documents/private/.alias ] && source ~/Documents/private/.alias
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
