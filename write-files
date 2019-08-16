@@ -44,7 +44,7 @@ do
   printf "\n"
 done
 
-for RELATIVE_PATH in $(find . -type f -not -path "*/.git/*" -not -name "write-files" | sed -e "s/^\.//g")
+for RELATIVE_PATH in $(find . -type f ! -path "*/.git/*" ! -name "write-files" ! -name "README.md" | sed -e "s/^\.//g")
 do
   SYMLINK=$HOME""$RELATIVE_PATH
   ACTUAL_FILE=$PWD""$RELATIVE_PATH
