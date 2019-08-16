@@ -2,7 +2,14 @@
 
 ## Images
 
-_Coming soon._
+### Vertical split with 2 terminals on the left
+![alt main](https://gist.githubusercontent.com/alexisquintero/a246066a7fdc3f938f5b72fd6653ebe4/raw/5b09839358433b6a1950c2e70fec84f1e614e476/desktop.png)
+
+### GTK
+![alt thunar](https://gist.githubusercontent.com/alexisquintero/a246066a7fdc3f938f5b72fd6653ebe4/raw/5b09839358433b6a1950c2e70fec84f1e614e476/gtk.png)
+
+### i3status
+![alt i3status](https://gist.githubusercontent.com/alexisquintero/a246066a7fdc3f938f5b72fd6653ebe4/raw/5b09839358433b6a1950c2e70fec84f1e614e476/i3bar.png)
 
 ## How to use
 
