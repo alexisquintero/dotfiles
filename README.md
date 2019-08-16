@@ -13,7 +13,7 @@
 
 ## How to use
 
-1. Clone the project
+1. Clone the repository
 2. CD into
 3. Run `./write-files`
 4. Answer the prompts
