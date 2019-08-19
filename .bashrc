@@ -32,7 +32,7 @@ case "$TERM" in
     xterm-color|*-256color|*-kitty) color_prompt=yes;;
 esac
 
-. ~/.config/utils/PS1.sh
+[ -f ~/.config/utils/PS1.sh ] && source ~/.config/utils/PS1.sh
 
 KHAKI="\001\e[38;2;195;163;138m\002"
 LYELLOW="\[\e[93m\]"
@@ -40,7 +40,7 @@ BOLD="\[\e[1m\]"
 NORMAL="\[\e[21m\]"
 RESET="\[\e[0m\]"
 
-if [ "$color_prompt" = yes ]; then
+if [ "$color_prompt" = yes ] && [ -f ~/.config/utils/PS1.sh]; then
   if [[ "$TERM" =~ 256color ]] || [[ "$TERM" =~ kitty ]]; then
     PS1="${KHAKI}${BOLD}\u@\W${BOLD} \$(insideGit) ${RESET}"
   else
