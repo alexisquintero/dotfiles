@@ -79,16 +79,6 @@ alias vn='~/.nvim/nightly/nvim.appimage'
 alias g='git'
 [ -f /usr/share/bash-completion/completions/git ] && source /usr/share/bash-completion/completions/git
 __git_complete g _git
-alias r='ranger'
-alias mute='amixer -D pulse set Master 1+ toggle'
-alias master50='amixer set Master 75%'
-alias muteSpeaker='amixer set Front 0%'
-alias muteHeadphones='amixer set Headphone 0%'
-alias hup='amixer set Headphone 10%+'
-alias hdw='amixer set Headphone 10%-'
-alias sup='amixer set Front 10%+'
-alias sdw='amixer set Front 10%-'
-alias headphone='amixer set Headphone playback 50% unmute'
 [ -f ~/Documents/private/.alias ] && source ~/Documents/private/.alias
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -98,3 +88,4 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH="/usr/local/bin:$PATH"
