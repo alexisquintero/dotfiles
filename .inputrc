@@ -5,6 +5,7 @@ set completion-ignore-case On
 set completion-prefix-display-length 2
 set mark-symlinked-directories On
 set visible-stats On
+set editing-mode vi
 
 "\C-p":menu-complete
 "\C-n":menu-complete-backward
