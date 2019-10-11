@@ -11,7 +11,7 @@ font pango:DejaVu Sans Mono 8
 
 floating_modifier $mod
 
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec kitty --single-instance
 bindsym $mod+space focus mode_toggle
 bindsym Print exec --no-startup-id "gnome-screenshot -a -i"
 
@@ -27,7 +27,6 @@ bindsym $mod+c exec google-chrome
 bindsym $mod+d exec "dmenu_run -nf '#F6D6BD' -nb '#20394F' -sb '#4E495F' -sf '#c3a38a'"
 bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen toggle
-bindsym $mod+g exec kitty -e ranger
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -87,10 +86,6 @@ mode "resize" {
 
 focus_follows_mouse no
 
-#Maybe work
-#bindsym XF86AudioRaiseVolume exec "amixer -c 1 sset Headphone 5%+"
-#bindsym XF86AudioLowerVolume exec "amixer -c 1 sset Headphone 5%-"
-#bindsym XF86AudioMute exec "amixer -c 1 sset Headphone toggle"
 #Home
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 1%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 1%-
