@@ -1,5 +1,5 @@
 # i3 config file (v4)
-#default_border pixel 0 # Nees i3v > 4.14
+#default_border pixel 0 # Needs i3v > 4.14
 new_window none
 
 exec "setxkbmap -layout us -variant altgr-intl"
