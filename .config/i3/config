@@ -1,6 +1,4 @@
-# Needs i3v > 4.14
 default_border pixel 0
-#new_window none
 
 exec "setxkbmap -layout us -variant altgr-intl"
 exec_always ~/.config/i3/i3scripts/autoname_workspaces.py --norenumber_workspaces&
