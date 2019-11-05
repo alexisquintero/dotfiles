@@ -141,6 +141,21 @@ else
   echo "i3config doesn't exist"
 fi
 
+if [ -d ~/st ]; then
+  echo "Updating st"
+  cd ~/st || return
+  git pull -r
+else
+  echo "Cloning st"
+  cd ~ || return
+  mkdir st
+  cd st || return
+  git init
+  git remote add origin https://git.suckless.org/st
+  git fetch
+  git checkout -t origin/master
+fi
+
 if [ "$REPOSITORY" = "true" ]
 then
   sudo add-apt-repository ppa:papirus/papirus
