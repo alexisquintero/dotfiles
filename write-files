@@ -1,5 +1,39 @@
 #!/bin/sh
 
+clone_or_update() {
+  # name,path,url
+  REPOS="utils,$HOME/.config/utils,https://github.com/alexisquintero/utils.git
+         .vim,$HOME/.vim,https://github.com/alexisquintero/.vim
+         st,$HOME/st,https://git.suckless.org/st
+         i3scripts,$HOME/.config/i3/i3scripts,https://github.com/alexisquintero/i3scripts"
+  for REPO in $REPOS
+  do
+    REMAINDER="$REPO"
+    NAME="${REMAINDER%%,*}"; REMAINDER="${REMAINDER#*,}"
+    DIR_PATH="${REMAINDER%%,*}"; REMAINDER="${REMAINDER#*,}"
+    URL="${REMAINDER%%,*}"; REMAINDER="${REMAINDER#*,}"
+    if [ -d "$DIR_PATH" ]; then
+      echo "Updating $NAME"
+      cd "$DIR_PATH" || return
+      git pull -r
+    else
+      echo "Cloning $NAME"
+      cd ~ || return
+      mkdir -p "$DIR_PATH"
+      cd "$DIR_PATH" || return
+      git init
+      git remote add "$URL"
+      git fetch
+      git checkout -t origin/master
+    fi
+    if [ "$NAME" = "i3scripts" ]
+    then
+      chmod +x "$DIR_PATH/autoname_workspaces.py"
+      chmod +x "$DIR_PATH/util.py"
+    fi
+  done
+}
+
 usage() {
   printf "
 \tNo parameters       Link config files
@@ -90,71 +124,7 @@ then
   exit
 fi
 
-if [ -d ~/.config/utils ]; then
-  echo "Updating utils"
-  cd ~/.config/utils
-  git pull -r
-else
-  echo "Cloning utils"
-  cd ~ || return
-  mkdir -p ~/.config/utils
-  cd ~/.config/utils || return
-  git init
-  git remote add origin https://github.com/alexisquintero/utils.git
-  git fetch
-  git checkout -t origin/master
-fi
-
-if [ -d ~/.vim/ ]; then
-  echo "Updating .vim"
-  cd ~/.vim/ || return
-  git pull -r
-else
-  echo "Cloning .vim"
-  cd ~ || return
-  mkdir .vim
-  cd .vim || return
-  git init
-  git remote add origin https://github.com/alexisquintero/.vim
-  git fetch
-  git checkout -t origin/master
-fi
-
-if [ -d ~/.config/i3/ ]; then
-  cd ~/.config/i3/ || return
-  if [ -d i3scripts/ ]; then
-    echo "updating i3scripts"
-    cd i3scripts/ || return
-    git pull -r
-  else
-    echo "cloning i3scripts"
-    mkdir i3scripts
-    cd i3scripts/ || return
-    git init
-    git remote add origin https://github.com/alexisquintero/i3scripts
-    git fetch
-    git checkout -t origin/master
-  fi
-  chmod +x ~/.config/i3/i3scripts/autoname_workspaces.py
-  chmod +x ~/.config/i3/i3scripts/util.py
-else
-  echo "i3config doesn't exist"
-fi
-
-if [ -d ~/st ]; then
-  echo "Updating st"
-  cd ~/st || return
-  git pull -r
-else
-  echo "Cloning st"
-  cd ~ || return
-  mkdir st
-  cd st || return
-  git init
-  git remote add origin https://git.suckless.org/st
-  git fetch
-  git checkout -t origin/master
-fi
+clone_or_update
 
 if [ "$REPOSITORY" = "true" ]
 then
