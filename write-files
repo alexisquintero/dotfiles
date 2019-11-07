@@ -30,6 +30,9 @@ clone_or_update() {
     then
       chmod +x "$DIR_PATH/autoname_workspaces.py"
       chmod +x "$DIR_PATH/util.py"
+    elif [ "$NAME" = "st" ]
+    then
+      sudo make clean install
     fi
   done
 }
