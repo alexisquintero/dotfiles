@@ -6,6 +6,7 @@ set completion-prefix-display-length 2
 set mark-symlinked-directories On
 set visible-stats On
 set editing-mode vi
+set show-all-if-ambiguous On
 
 "\C-p":menu-complete
 "\C-n":menu-complete-backward
