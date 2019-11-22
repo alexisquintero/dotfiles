@@ -50,6 +50,12 @@ INSTALL=false
 REPOSITORY=false
 YES=false
 
+BACKUP_PREFIX="backup"
+DATE=$(date +%F-%H-%M-%S)
+BACKUP_FOLDER=$BACKUP_PREFIX$DATE
+
+mkdir "$BACKUP_FOLDER"
+
 while [ "$1" != "" ]; do
     case $1 in
         -i | --install )        INSTALL=true
@@ -67,7 +73,7 @@ while [ "$1" != "" ]; do
     shift
 done
 
-for FOLDERS in $(find . -type d -not -path "*/.git/*" -not -name ".git" | sed -e "s/^\.//g")
+for FOLDERS in $(find . -type d ! -path "*/.git/*" ! -name ".git" ! -name "$BACKUP_PREFIX*" | sed -e "s/^\.//g")
 do
   printf "Creating folder %s..." "$FOLDERS"
   FOLDER_PATH="$HOME""$FOLDERS"
@@ -81,10 +87,11 @@ do
   printf "\n"
 done
 
-for RELATIVE_PATH in $(find . -type f ! -path "*/.git/*" ! -name "write-files" ! -name "README.md" | sed -e "s/^\.//g")
+for RELATIVE_PATH in $(find . -type f ! -path "*/.git/*" ! -path "*/backup*" ! -name "write-files" ! -name "README.md" ! -name ".gitignore" | sed -e "s/^\.//g")
 do
   SYMLINK=$HOME""$RELATIVE_PATH
   ACTUAL_FILE=$PWD""$RELATIVE_PATH
+  BACKUP_PATH=$PWD""$BACKUP_FOLDER""$RELATIVE_PATH
   CURRENTSYMLINKTARGET=""
   ANSWER="n"
 
@@ -118,9 +125,17 @@ do
   fi
   if [ "$ANSWER" = "y" ]
   then
+    # mkdir -p TODO: Create necessary relative path in backup folder so cp is succesfull
+    cp "$ACTUAL_FILE" "$BACKUP_PATH"
     ln -sfv "$ACTUAL_FILE" "$SYMLINK"
   fi
 done
+
+# Delete backup dir if empty
+if ! [ "$(ls -A "$BACKUP_FOLDER")" ]
+then
+  rm -r "$BACKUP_FOLDER"
+fi
 
 if [ "$INSTALL" = "false" ]
 then
