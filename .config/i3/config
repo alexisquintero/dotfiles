@@ -109,7 +109,7 @@ bar {
     inactive_workspace #0f2a3f #0f2a3f #816271
     urgent_workspace   #816271 #816271 #0E1111
   }
-  status_command i3status --config ~/.config/i3/i3status
+  status_command i3status --config ~/.config/i3/i3status | ~/.config/utils/spotifyInfo.sh
 }
 
 # class                 border  backgr. text    indicator child_border  #  custom colors table
