@@ -9,7 +9,6 @@
 	gud = commit --amend --no-edit
 	r = rebase
 	d = diff
-	dh = diff HEAD~1 HEAD
 [user]
 	email = alexis_quintero@hotmail.com.ar
 	name = Alexis Quintero
