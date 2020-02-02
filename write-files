@@ -22,7 +22,7 @@ clone_or_update() {
       mkdir -p "$DIR_PATH"
       cd "$DIR_PATH" || return
       git init
-      git remote add "$URL"
+      git remote add origin "$URL"
       git fetch
       git checkout -t origin/master
     fi
