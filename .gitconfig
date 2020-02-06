@@ -9,6 +9,8 @@
 	gud = commit --amend --no-edit
 	r = rebase
 	d = diff
+	dm = rev-list --left-right --count origin/master...HEAD
+	dd = rev-list --left-right --count origin/develop...HEAD
 [user]
 	email = alexis_quintero@hotmail.com.ar
 	name = Alexis Quintero
