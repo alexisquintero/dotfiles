@@ -138,6 +138,7 @@ then
   sudo add-apt-repository "deb http://debian.sur5r.net/i3/ xenial universe"
 fi
 
+wget -O .git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh #Git PS1
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 mkdir -p ~/.nvim/nightly
 wget -O ~/.nvim/nvim.appimage https://github.com/neovim/neovim/releases/download/stable/nvim.appimage

@@ -31,7 +31,12 @@ case "$TERM" in
     xterm-color|*-256color|*-kitty) color_prompt=yes;;
 esac
 
-[ -f ~/.config/utils/PS1.sh ] && source ~/.config/utils/PS1.sh
+[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_DESCRIBE_STYLE=default
+GIT_PS1_SHOWCOLORHINTS=1
 
 KHAKI="\001\e[38;2;195;163;138m\002"
 LYELLOW="\[\e[93m\]"
@@ -40,9 +45,9 @@ RESET="\[\e[0m\]"
 
 if [ "$color_prompt" = yes ] && [ -f ~/.config/utils/PS1.sh ]; then
   if [[ "$TERM" =~ 256color ]] || [[ "$TERM" =~ kitty ]]; then
-    PS1="${KHAKI}${BOLD}\u@\W${BOLD} \$(insideGit) ${RESET}"
+    PS1="${KHAKI}${BOLD}"'\u@\W$(__git_ps1 " %s") '"${RESET}"
   else
-    PS1="${LYELLOW}${BOLD}\u@\W${BOLD} \$(insideGit) ${RESET}"
+    PS1="${LYELLOW}${BOLD}"'\u@\W$(__git_ps1 " %s") '"${RESET}"
   fi
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
