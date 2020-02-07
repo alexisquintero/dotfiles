@@ -45,9 +45,9 @@ RESET="\[\e[0m\]"
 
 if [ "$color_prompt" = yes ] && [ -f ~/.config/utils/PS1.sh ]; then
   if [[ "$TERM" =~ 256color ]] || [[ "$TERM" =~ kitty ]]; then
-    PS1="${KHAKI}"'$(__git_ps1 "%s ")'"${BOLD}\u@\W${RESET} "
+    PS1="${KHAKI}"'$(__git_ps1 "%s ")'"${BOLD}\u@\W ⬥${RESET} "
   else
-    PS1="${LYELLOW}"'$(__git_ps1 "%s ")'"${BOLD}\u@\W${RESET} "
+    PS1="${LYELLOW}"'$(__git_ps1 "%s ")'"${BOLD}\u@\W ⬥${RESET} "
   fi
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
