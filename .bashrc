@@ -19,7 +19,30 @@ shopt -s cdspell                    # autocorrects cd misspellings
 shopt -s checkwinsize               # update the value of LINES and COLUMNS after each command if altered
 shopt -s histappend                 # append to the history file, don't overwrite it
 
-PROMPT_COMMAND='[[ ${__new_wd:=$PWD} != $PWD ]] && l; __new_wd=$PWD'   # Calls `l` when changing directory
+[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWUPSTREAM="auto"
+GIT_PS1_DESCRIBE_STYLE=default
+
+__prompt_command() {
+  local EXIT="$?"
+  local KHAKI='\001\e[38;2;195;163;138m\002'
+  local BOLD='\[\e[1m\]'
+  local RESET='\[\e[0m\]'
+  local EXIT_CODE=''
+
+  if [ $EXIT != 0 ]; then
+    EXIT_CODE='\[\e[0;31m\]' # Add red if exit code non 0
+  fi
+
+  PS1=""
+  __git_ps1 "${KHAKI}" "${BOLD}\u@\W ${EXIT_CODE}⬥${RESET} " "%s "
+
+  [[ ${__new_wd:=$PWD} != $PWD ]] && ls -AF; __new_wd=$PWD # Calls `l` when changing directory
+}
+
+PROMPT_COMMAND=__prompt_command
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -30,28 +53,6 @@ fi
 case "$TERM" in
     xterm-color|*-256color|*-kitty) color_prompt=yes;;
 esac
-
-[ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWUNTRACKEDFILES=1
-GIT_PS1_SHOWUPSTREAM="auto"
-GIT_PS1_DESCRIBE_STYLE=default
-GIT_PS1_SHOWCOLORHINTS=1
-
-KHAKI="\001\e[38;2;195;163;138m\002"
-LYELLOW="\[\e[93m\]"
-BOLD="\[\e[1m\]"
-RESET="\[\e[0m\]"
-
-if [ "$color_prompt" = yes ] && [ -f ~/.config/utils/PS1.sh ]; then
-  if [[ "$TERM" =~ 256color ]] || [[ "$TERM" =~ kitty ]]; then
-    PS1="${KHAKI}"'$(__git_ps1 "%s ")'"${BOLD}\u@\W ⬥${RESET} "
-  else
-    PS1="${LYELLOW}"'$(__git_ps1 "%s ")'"${BOLD}\u@\W ⬥${RESET} "
-  fi
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
