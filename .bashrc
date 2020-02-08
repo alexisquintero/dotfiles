@@ -8,8 +8,7 @@ esac
 
 set -o vi
 
-# don't put duplicate lines
-HISTCONTROL=ignoredups
+HISTCONTROL=ignoredups              # don't put duplicate lines
 HISTSIZE=1000
 HISTFILESIZE=2000
 
@@ -77,7 +76,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export VISUAL=vim EDITOR=vim
+export VISUAL=vim
 
 alias v='~/.nvim/nvim.appimage'
 alias vn='~/.nvim/nightly/nvim.appimage'
@@ -93,4 +92,3 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="/usr/local/bin:$PATH"
