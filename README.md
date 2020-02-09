@@ -27,12 +27,9 @@
 * `-h` or `--help`: Something like this.
 * `/.+/`: Help as well.
 
-## How to remove
+## Backup
 
-<details>
-	<summary>Step by step.</summary>
-  <image src="https://i.kym-cdn.com/photos/images/newsfeed/000/531/029/68e.gif"/>
-</details>
+Every existing file that the user chooses to symlink will be copied to a backup folder where the write-files scripts is run
 
 [1]: https://github.com/alexisquintero/utils
 [2]: https://github.com/alexisquintero/.vim
