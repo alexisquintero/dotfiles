@@ -33,6 +33,10 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -AF'
+
 __prompt_command() {
   local EXIT="$?"
   local KHAKI='\001\e[38;2;195;163;138m\002'
@@ -47,7 +51,7 @@ __prompt_command() {
   PS1=""
   __git_ps1 "${KHAKI}" "${BOLD}\u@\W ${EXIT_CODE}⬥${RESET} " "%s "
 
-  [[ ${__new_wd:=$PWD} != $PWD ]] && ls -AF; __new_wd=$PWD # Calls `l` when changing directory
+  [[ ${__new_wd:=$PWD} != $PWD ]] && l; __new_wd=$PWD # Calls `l` when changing directory
 }
 
 PROMPT_COMMAND=__prompt_command
@@ -61,10 +65,6 @@ fi
 case "$TERM" in
     xterm-color|*-256color|*-kitty) color_prompt=yes;;
 esac
-
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -AF'
 
 # enable programmable completion features (you don't need to enable this, if it's already enabled in /etc/bash.bashrc
 # and /etc/profile sources /etc/bash.bashrc).
