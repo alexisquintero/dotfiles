@@ -73,10 +73,11 @@ while [ "$1" != "" ]; do
     shift
 done
 
-for FOLDERS in $(find . -type d ! -path "*/.git/*" ! -name ".git" ! -name "$BACKUP_PREFIX*" | sed -e "s/^\.//g")
+for FOLDER in $(find . -type d ! -path "*/.git/*" ! -name ".git" ! -name "$BACKUP_PREFIX*" | sed -e "s/^\.//g")
 do
-  printf "Creating folder %s..." "$FOLDERS"
-  FOLDER_PATH="$HOME""$FOLDERS"
+  printf "Creating folder %s..." "$FOLDER"
+  mkdir -p "${BACKUP_FOLDER}${FOLDER}"
+  FOLDER_PATH=${HOME}${FOLDER}
   if [ -d "$FOLDER_PATH" ]
   then
     printf "already exists"
@@ -89,9 +90,9 @@ done
 
 for RELATIVE_PATH in $(find . -type f ! -path "*/.git/*" ! -path "*/backup*" ! -name "write-files" ! -name "README.md" ! -name ".gitignore" | sed -e "s/^\.//g")
 do
-  SYMLINK=$HOME""$RELATIVE_PATH
-  ACTUAL_FILE=$PWD""$RELATIVE_PATH
-  BACKUP_PATH=$PWD""$BACKUP_FOLDER""$RELATIVE_PATH
+  SYMLINK=${HOME}${RELATIVE_PATH}
+  ACTUAL_FILE=${PWD}${RELATIVE_PATH}
+  BACKUP_PATH=${PWD}"/"${BACKUP_FOLDER}${RELATIVE_PATH}
   CURRENTSYMLINKTARGET=""
   ANSWER="n"
 
@@ -125,17 +126,10 @@ do
   fi
   if [ "$ANSWER" = "y" ]
   then
-    # mkdir -p TODO: Create necessary relative path in backup folder so cp is succesfull
-    cp "$ACTUAL_FILE" "$BACKUP_PATH"
+    cp "$SYMLINK" "$BACKUP_PATH"
     ln -sfv "$ACTUAL_FILE" "$SYMLINK"
   fi
 done
-
-# Delete backup dir if empty
-if ! [ "$(ls -A "$BACKUP_FOLDER")" ]
-then
-  rm -r "$BACKUP_FOLDER"
-fi
 
 if [ "$INSTALL" = "false" ]
 then
