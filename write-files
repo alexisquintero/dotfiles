@@ -4,8 +4,7 @@ clone_or_update() {
   # name,path,url
   REPOS="utils,$HOME/.config/utils,https://github.com/alexisquintero/utils.git
          .vim,$HOME/.vim,https://github.com/alexisquintero/.vim
-         st,$HOME/st,https://git.suckless.org/st
-         i3scripts,$HOME/.config/i3/i3scripts,https://github.com/alexisquintero/i3scripts"
+         st,$HOME/st,https://git.suckless.org/st"
   for REPO in $REPOS
   do
     REMAINDER="$REPO"
