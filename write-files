@@ -81,7 +81,7 @@ do
   then
     printf "already exists"
   else
-    mkdir -p FOLDER_PATH
+    mkdir -p "$FOLDER_PATH"
     printf "created"
   fi
   printf "\n"
