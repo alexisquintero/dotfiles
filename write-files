@@ -158,9 +158,5 @@ chmod a+x /home/"$USER"/bin/tmux
 sudo apt-get update
 sudo apt-get install i3
 sudo apt-get install silversearcher-ag
-sudo apt-get install xorg
-sudo apt-get install fonts-font-awesome
-pip3 install i3ipc
-pip3 install fontawesome
 sudo apt-get install arc-theme
 sudo apt-get install papirus-icon-theme

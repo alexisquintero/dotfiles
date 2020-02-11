@@ -1,7 +1,6 @@
 default_border pixel 0
 
 exec "setxkbmap -layout us -variant altgr-intl"
-exec_always ~/.config/i3/i3scripts/autoname_workspaces.py --norenumber_workspaces&
 
 set $mod Mod4
 
@@ -31,7 +30,7 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 bindsym $mod+n workspace next
-bindsym $mod+o exec "~/.config/i3/i3scripts/new_free.py"
+bindsym $mod+o exec "~/.config/utils/i3nextEmptyWs.py"
 bindsym $mod+p workspace prev
 bindsym $mod+q workspace back_and_forth
 bindsym $mod+r mode "resize"
