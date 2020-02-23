@@ -191,10 +191,10 @@ timeout = 8
 # NOTE: if you don't want a notification to be displayed, set the format to "".
 # NOTE: It might be helpful to run dunst -print in a terminal in order to find fitting options for rules.
 
-[Spotify]
+[spotify]
   appname = "Spotify"
     foreground = "#1DB954"
-    background = "#00000"
+    background = "#212121"
 
 #[espeak]
 #    summary = "*"
