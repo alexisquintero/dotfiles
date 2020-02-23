@@ -17,6 +17,7 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 bindsym $mod+Shift+q kill
+bindsym $mod+Shift+semicolon move scratchpad
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+v split h
 bindsym $mod+a focus parent
@@ -34,6 +35,8 @@ bindsym $mod+p workspace prev
 bindsym $mod+q workspace back_and_forth
 bindsym $mod+r mode "resize"
 bindsym $mod+s layout stacking
+bindsym $mod+semicolon scratchpad show
+bindsym $mod+slash sticky toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+t exec thunar
 bindsym $mod+v split v
@@ -42,11 +45,9 @@ bindsym $mod+x exec firefox
 bindsym $mod+y exec "i3lock -c 000000 ;xset dpms force off"
 bindsym $mod+z exec slack
 
+
 bindsym $mod+F8 exec "~/Documents/private/clojureTerminals"
 bindsym $mod+F12 exec "amixer set Headphone playback 50% unmute"
-
-bindsym $mod+semicolon scratchpad show
-bindsym $mod+Shift+semicolon move scratchpad
 
 set $ws1 "1"
 set $ws2 "2"
