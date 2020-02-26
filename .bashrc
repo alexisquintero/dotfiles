@@ -1,10 +1,5 @@
-#bg: #08141E              #fg: #F8FA90                  #font: DejaVu Sans Mono 8
-
 # If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+[ -z "$PS1" ] && return
 
 set -o vi
 
@@ -17,6 +12,8 @@ shopt -s autocd                     # Allows you to cd into directory merely by 
 shopt -s cdspell                    # autocorrects cd misspellings
 shopt -s checkwinsize               # update the value of LINES and COLUMNS after each command if altered
 shopt -s histappend                 # append to the history file, don't overwrite it
+
+color_prompt=yes
 
 [ -f ~/.git-prompt.sh ] && source ~/.git-prompt.sh
 GIT_PS1_SHOWDIRTYSTATE=1
@@ -55,16 +52,6 @@ __prompt_command() {
 }
 
 PROMPT_COMMAND=__prompt_command
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color|*-kitty) color_prompt=yes;;
-esac
 
 # enable programmable completion features (you don't need to enable this, if it's already enabled in /etc/bash.bashrc
 # and /etc/profile sources /etc/bash.bashrc).
