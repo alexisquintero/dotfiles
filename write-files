@@ -146,14 +146,14 @@ then
   sudo add-apt-repository "deb http://debian.sur5r.net/i3/ xenial universe"
 fi
 
-wget -O .git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh #Git PS1
+wget -O "$HOME"/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh #Git PS1
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-wget -O /home/"$USER"/bin/nvim https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-chmod a+x /home/"$USER"/bin/nvim
-wget -O /home/"$USER"/bin/nvim-nightly https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-chmod a+x /home/"$USER"/bin/nvim-nightly
-wget -O /home/"$USER"/bin/tmux https://github.com/tmux/tmux/releases/download/3.0a/tmux-3.0a-x86_64.AppImage
-chmod a+x /home/"$USER"/bin/tmux
+wget -O "$HOME"/bin/nvim https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+chmod a+x "$HOME"/bin/nvim
+wget -O "$HOME"/bin/nvim-nightly https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+chmod a+x "$HOME"/bin/nvim-nightly
+wget -O "$HOME"/bin/tmux https://github.com/tmux/tmux/releases/download/3.0a/tmux-3.0a-x86_64.AppImage
+chmod a+x "$HOME"/bin/tmux
 sudo apt-get update
 sudo apt-get install i3
 sudo apt-get install silversearcher-ag
