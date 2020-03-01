@@ -147,7 +147,6 @@ then
 fi
 
 wget -O "$HOME"/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh #Git PS1
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 wget -O "$HOME"/bin/nvim https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
 chmod a+x "$HOME"/bin/nvim
 wget -O "$HOME"/bin/nvim-nightly https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage

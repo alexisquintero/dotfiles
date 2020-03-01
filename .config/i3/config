@@ -9,7 +9,6 @@ font pango:DejaVu Sans Mono 8
 floating_modifier $mod
 
 bindsym $mod+Return exec st
-bindsym $mod+Shift+Return exec kitty
 bindsym Print exec --no-startup-id "gnome-screenshot -a -i"
 
 bindsym $mod+Shift+h move left
