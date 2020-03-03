@@ -155,6 +155,8 @@ wget -O "$HOME"/bin/tmux https://github.com/tmux/tmux/releases/download/3.0a/tmu
 chmod a+x "$HOME"/bin/tmux
 sudo apt-get update
 sudo apt-get install i3
+sudo apt-get install i3status
+sudo apt-get install i3lock
 sudo apt-get install silversearcher-ag
 sudo apt-get install arc-theme
 sudo apt-get install papirus-icon-theme
