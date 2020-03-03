@@ -29,6 +29,7 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 bindsym $mod+n workspace next
+bindsym $mod+m exec spotify
 bindsym $mod+o exec "~/.config/utils/i3nextEmptyWs.py"
 bindsym $mod+p workspace prev
 bindsym $mod+q workspace back_and_forth
@@ -90,6 +91,8 @@ bindsym $mod+Shift+equal move container to workspace number $ws12
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+for_window [class="Spotify"] move to workspace $ws12
 
 mode "resize" {
   bindsym h resize shrink width 10 px or 10 ppt
