@@ -67,6 +67,7 @@ export VISUAL=vim
 export EDITOR=vim
 export INPUTRC="$HOME/.config/inputrc"
 export LESSHISTFILE=-
+export HISTFILE="$HOME/.config/bash/history"
 
 alias v=nvim
 alias g='git'
