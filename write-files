@@ -146,7 +146,7 @@ then
   sudo add-apt-repository "deb http://debian.sur5r.net/i3/ xenial universe"
 fi
 
-wget -O "$HOME"/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh #Git PS1
+wget -O "$HOME"/.config/git/git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh #Git PS1
 wget -O "$HOME"/bin/nvim https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
 chmod a+x "$HOME"/bin/nvim
 wget -O "$HOME"/bin/nvim-nightly https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
