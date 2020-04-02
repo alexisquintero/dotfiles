@@ -65,6 +65,7 @@ fi
 
 export VISUAL=vim
 export EDITOR=vim
+export INPUTRC="$HOME/.config/inputrc"
 
 alias v=nvim
 alias g='git'
