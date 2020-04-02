@@ -65,7 +65,7 @@ fi
 
 export VISUAL=vim
 export EDITOR=vim
-export INPUTRC="$HOME/.config/inputrc"
+export INPUTRC="$HOME/.config/readline/inputrc"
 export LESSHISTFILE=-
 export HISTFILE="$HOME/.config/bash/history"
 
