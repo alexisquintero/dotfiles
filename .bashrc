@@ -63,13 +63,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export VISUAL=vim
-export EDITOR=vim
-export INPUTRC="$HOME/.config/readline/inputrc"
-export LESSHISTFILE=-
-export HISTFILE="$HOME/.config/bash/history"
-export ICEAUTHORITY="$HOME/.cache/ICEauthority"
-
 alias v=nvim
 alias g='git'
 [ -f /usr/share/bash-completion/completions/git ] && source /usr/share/bash-completion/completions/git
