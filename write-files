@@ -147,12 +147,12 @@ then
 fi
 
 wget -O "$HOME"/.config/git/git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh #Git PS1
-wget -O "$HOME"/bin/nvim https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-chmod a+x "$HOME"/bin/nvim
-wget -O "$HOME"/bin/nvim-nightly https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
-chmod a+x "$HOME"/bin/nvim-nightly
-wget -O "$HOME"/bin/tmux https://github.com/tmux/tmux/releases/download/3.0a/tmux-3.0a-x86_64.AppImage
-chmod a+x "$HOME"/bin/tmux
+wget -O "$HOME"/.local/bin/nvim https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+chmod a+x "$HOME"/.local/bin/nvim
+wget -O "$HOME"/.local/bin/nvim-nightly https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+chmod a+x "$HOME"/.local/bin/nvim-nightly
+wget -O "$HOME"/.local/bin/tmux https://github.com/tmux/tmux/releases/download/3.0a/tmux-3.0a-x86_64.AppImage
+chmod a+x "$HOME"/.local/bin/tmux
 sudo apt-get update
 sudo apt-get install i3
 sudo apt-get install i3status
