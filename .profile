@@ -8,6 +8,7 @@ export ICEAUTHORITY="$HOME/.cache/ICEauthority"
 export ANDROID_SDK_HOME="$HOME/.config/android"
 export GTK2_RC_FILES="$HOME/gtk-2.0/gtkrc"
 export PYLINTHOME="$HOME/pylint"
+export NVM_DIR="$HOME/.config/.nvm"
 
 export PATH="$HOME/.local/bin:$PATH"
 
