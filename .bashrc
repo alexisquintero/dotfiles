@@ -41,9 +41,7 @@ __prompt_command() {
   local RESET='\[\e[0m\]'
   local EXIT_CODE=''
 
-  if [ $EXIT != 0 ]; then
-    EXIT_CODE='\[\e[0;31m\]' # Add red if exit code non 0
-  fi
+  [ $EXIT != 0 ] && EXIT_CODE='\[\e[0;31m\]' # Add red if exit code non 0
 
   PS1=""
   __git_ps1 "${KHAKI}" "${BOLD}\u@\W ${EXIT_CODE}⬥${RESET} " "%s "
