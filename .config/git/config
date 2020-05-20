@@ -11,6 +11,7 @@
 	d = diff
 	dm = rev-list --left-right --count origin/master...HEAD
 	dd = rev-list --left-right --count origin/develop...HEAD
+	fixup = !sha=$( git -c color.ui=always log --oneline -n 1000 | fzf +s --ansi --no-multi --prompt 'Fixup> ' ) && git commit --fixup "${sha%% *}"
 [user]
 	email = alexis_quintero@hotmail.com.ar
 	name = Alexis Quintero
