@@ -63,6 +63,7 @@ fi
 
 alias v=nvim
 alias g='git'
+alias o=xdg-open
 [ -f /usr/share/bash-completion/completions/git ] && source /usr/share/bash-completion/completions/git
 __git_complete g _git
 [ -f ~/Documents/private/.alias ] && source ~/Documents/private/.alias
