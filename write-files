@@ -154,9 +154,4 @@ chmod a+x "$HOME"/.local/bin/nvim-nightly
 wget -O "$HOME"/.local/bin/tmux https://github.com/tmux/tmux/releases/download/3.0a/tmux-3.0a-x86_64.AppImage
 chmod a+x "$HOME"/.local/bin/tmux
 sudo apt-get update
-sudo apt-get install i3
-sudo apt-get install i3status
-sudo apt-get install i3lock
-sudo apt-get install silversearcher-ag
-sudo apt-get install arc-theme
-sudo apt-get install papirus-icon-theme
+sudo apt-get install i3 i3status i3lock silversearcher-ag arc-theme papirus-icon-theme
