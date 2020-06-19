@@ -87,7 +87,7 @@ do
   printf "\n"
 done
 
-for RELATIVE_PATH in $(find . -type f ! -path "*/.git/*" ! -path "*/backup*" ! -name "write-files" ! -name "README.md" ! -name ".gitignore" | sed -e "s/^\.//g")
+for RELATIVE_PATH in $(find . -type f ! -path "*/.git/*" ! -path "*/$BACKUP_PREFIX*" ! -name "write-files" ! -name "README.md" ! -name ".gitignore" | sed -e "s/^\.//g")
 do
   SYMLINK=${HOME}${RELATIVE_PATH}
   ACTUAL_FILE=${PWD}${RELATIVE_PATH}
