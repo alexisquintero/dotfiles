@@ -54,6 +54,9 @@ DATE=$(date +%F-%H-%M-%S)
 BACKUP_FOLDER=$BACKUP_PREFIX$DATE
 
 mkdir "$BACKUP_FOLDER"
+mkdir -p "$HOME/.local/bin"
+mkdir -p "$HOME/.vim/private/directory"
+mkdir -p "$HOME/.vim/private/undo"
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -139,7 +142,6 @@ clone_or_update
 
 if [ "$REPOSITORY" = "true" ]
 then
-  sudo add-apt-repository ppa:papirus/papirus
   # i3 up to date repository
   /usr/lib/apt/apt-helper download-file http://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2019.02.01_all.deb keyring.deb SHA256:176af52de1a976f103f9809920d80d02411ac5e763f695327de9fa6aff23f416
   sudo dpkg -i keyring.deb
@@ -154,4 +156,4 @@ chmod a+x "$HOME"/.local/bin/nvim-nightly
 wget -O "$HOME"/.local/bin/tmux https://github.com/tmux/tmux/releases/download/3.0a/tmux-3.0a-x86_64.AppImage
 chmod a+x "$HOME"/.local/bin/tmux
 sudo apt-get update
-sudo apt-get install i3 i3status i3lock silversearcher-ag arc-theme papirus-icon-theme
+sudo apt-get install i3 i3status i3lock silversearcher-ag
