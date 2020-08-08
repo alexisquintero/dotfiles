@@ -46,7 +46,7 @@ __prompt_command() {
   PS1=""
   __git_ps1 "${KHAKI}" "${BOLD}\u@\W ${EXIT_CODE}⬥${RESET} " "%s "
 
-  [[ ${__new_wd:=$PWD} != $PWD ]] && l; __new_wd=$PWD # Calls `l` when changing directory
+  [[ ${__new_wd:=$PWD} != $PWD ]] && ls -AF; __new_wd=$PWD # Calls `l` when changing directory
 }
 
 PROMPT_COMMAND=__prompt_command
