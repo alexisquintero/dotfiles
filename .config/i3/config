@@ -2,7 +2,7 @@ default_border pixel 0
 
 exec "setxkbmap -layout us -variant altgr-intl"
 
-set $mod Mod1
+set $mod Mod4
 
 font pango:DejaVu Sans Mono 8
 
