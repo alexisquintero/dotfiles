@@ -15,7 +15,8 @@ shopt -s histappend                 # append to the history file, don't overwrit
 
 color_prompt=yes
 
-[ -f ~/.config/git/git-prompt.sh ] && source ~/.config/git/git-prompt.sh
+[ -e ~/.config/git/git-prompt.sh ] || wget -O "$HOME"/.config/git/git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh && source "$HOME"/.config/git/git-prompt.sh
+
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
 GIT_PS1_SHOWUPSTREAM="auto"
