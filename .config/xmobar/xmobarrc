@@ -1,0 +1,26 @@
+Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+       , additionalFonts = []
+       , bgColor = "#0f2a3f"
+       , fgColor = "#f6d6bd"
+       , alpha = 255
+       , position = Top
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , allDesktops = True
+       , commands = [ Run Network "eth0" ["-L","0","-H","32"] 10
+                    , Run Network "eth1" ["-L","0","-H","32"] 10
+                    , Run Cpu ["-L","3","-H","50"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+                    , Run Com "uname" ["-s","-r"] "" 36000
+                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                    , Run Battery [] 50
+                    , Run StdinReader
+                    ]
+       , alignSep = "}{"
+       , template = " %StdinReader% }{ %battery% | %cpu% | %memory% * %swap% | %eth0% - %eth1% | %date% "
+       }
