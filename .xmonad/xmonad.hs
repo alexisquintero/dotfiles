@@ -20,6 +20,8 @@ keyMappings = [ ((mod4Mask, xK_y)                   , spawn "xscreensaver-comman
               , ((mod4Mask .|. shiftMask, xK_minus) , windows $ W.shift "11")
               , ((mod4Mask, xK_equal)               , windows $ W.greedyView "12")
               , ((mod4Mask .|. shiftMask, xK_equal) , windows $ W.shift "12")
+              , ((mod4Mask, xK_x)                   , spawn "firefox")
+              , ((mod4Mask, xK_c)                   , spawn "chromium")
               ]
 
 myConfig = defaultConfig { modMask = mod4Mask
