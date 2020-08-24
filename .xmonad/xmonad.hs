@@ -24,12 +24,12 @@ keyMappings = [ ((mod4Mask, xK_y)                   , spawn "xscreensaver-comman
               , ((mod4Mask, xK_c)                   , spawn "chromium")
               ]
 
-myConfig = defaultConfig { modMask = mod4Mask
-                        , terminal = "st"
-                        , focusFollowsMouse = False
-                        , borderWidth = 0
-                        , workspaces = map show [1..12]
-                        , logHook = dynamicLogString defaultPP >>= xmonadPropLog
-                        } `additionalKeys` keyMappings
+myConfig = def { modMask = mod4Mask
+               , terminal = "st"
+               , focusFollowsMouse = False
+               , borderWidth = 0
+               , workspaces = map show [1..12]
+               , logHook = dynamicLogString defaultPP >>= xmonadPropLog
+               } `additionalKeys` keyMappings
 
 main = xmonad =<< xmobar myConfig
