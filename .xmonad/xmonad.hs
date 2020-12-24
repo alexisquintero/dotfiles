@@ -1,6 +1,7 @@
 import XMonad
 import XMonad.Actions.CycleWS(toggleWS, moveTo, Direction1D(Next, Prev), WSType(EmptyWS, NonEmptyWS))
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.ManageDocks
 import qualified XMonad.StackSet as W
 import XMonad.Util.EZConfig(additionalKeys)
 import Graphics.X11.ExtraTypes.XF86
@@ -25,6 +26,7 @@ keyMappings = [ ((mod4Mask, xK_y)                   , spawn "xscreensaver-comman
               , ((mod4Mask .|. shiftMask, xK_equal) , windows $ W.shift "12")
               , ((mod4Mask, xK_x)                   , spawn "firefox")
               , ((mod4Mask, xK_c)                   , spawn "chromium")
+              , ((mod4Mask, xK_n)                   , sendMessage ToggleStruts)
               , ((0, xF86XK_TouchpadToggle)         , spawn "toggle-touchpad")
               , ((0, xF86XK_MonBrightnessDown)      , spawn "light -U 10")
               , ((0, xF86XK_MonBrightnessUp)        , spawn "light -A 10")
