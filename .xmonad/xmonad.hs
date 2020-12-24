@@ -17,6 +17,8 @@ keyMappings = [ ((mod4Mask, xK_y)                   , spawn "xscreensaver-comman
               , ((mod4Mask, xK_q)                   , toggleWS)
               , ((mod4Mask, xK_o)                   , moveTo Next EmptyWS)
               , ((mod4Mask .|. shiftMask, xK_r)     , broadcastMessage ReleaseResources >> restart "xmonad" True)
+              , ((mod4Mask, xK_0)                   , windows $ W.greedyView "10")
+              , ((mod4Mask .|. shiftMask, xK_0)     , windows $ W.shift "10")
               , ((mod4Mask, xK_minus)               , windows $ W.greedyView "11")
               , ((mod4Mask .|. shiftMask, xK_minus) , windows $ W.shift "11")
               , ((mod4Mask, xK_equal)               , windows $ W.greedyView "12")
