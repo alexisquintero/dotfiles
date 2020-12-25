@@ -26,7 +26,7 @@ keyMappings = [ ((mod4Mask, xK_y)                   , spawn "xscreensaver-comman
               , ((mod4Mask .|. shiftMask, xK_equal) , windows $ W.shift "12")
               , ((mod4Mask, xK_x)                   , spawn "firefox")
               , ((mod4Mask, xK_c)                   , spawn "chromium")
-              , ((mod4Mask, xK_n)                   , sendMessage ToggleStruts)
+              , ((mod4Mask, xK_t)                   , sendMessage ToggleStruts)
               , ((0, xF86XK_TouchpadToggle)         , spawn "toggle-touchpad")
               , ((0, xF86XK_MonBrightnessDown)      , spawn "light -U 10")
               , ((0, xF86XK_MonBrightnessUp)        , spawn "light -A 10")
