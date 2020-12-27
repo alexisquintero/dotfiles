@@ -9,6 +9,8 @@ import System.IO
 
 myDmenu = "dmenu_run -nf '#F6D6BD' -nb '#20394F' -sb '#4E495F' -sf '#c3a38a'"
 
+notifyVolume = "notify-send $(amixer sget Master | grep -oP \"\\[\\d{1,3}%\\] \\[\\w{2,3}\\]\" | head -n1)"
+
 keyMappings = [ ((mod4Mask, xK_y)                   , spawn "xscreensaver-command -lock")
               , ((controlMask, xK_Print)            , spawn "sleep 0.2; scrot -s")
               , ((0, xK_Print)                      , spawn "scrot")
@@ -30,9 +32,9 @@ keyMappings = [ ((mod4Mask, xK_y)                   , spawn "xscreensaver-comman
               , ((0, xF86XK_TouchpadToggle)         , spawn "toggle-touchpad")
               , ((0, xF86XK_MonBrightnessDown)      , spawn "light -U 10")
               , ((0, xF86XK_MonBrightnessUp)        , spawn "light -A 10")
-              , ((0, xF86XK_AudioLowerVolume)       , spawn "amixer -q set Master 5%- unmute")
-              , ((0, xF86XK_AudioRaiseVolume)       , spawn "amixer -q set Master 5%+ unmute")
-              , ((0, xF86XK_AudioMute)              , spawn "amixer -q set Master toggle")
+              , ((0, xF86XK_AudioLowerVolume)       , spawn $ "amixer -q set Master 5%- unmute && " ++ notifyVolume)
+              , ((0, xF86XK_AudioRaiseVolume)       , spawn $ "amixer -q set Master 5%+ unmute && " ++ notifyVolume)
+              , ((0, xF86XK_AudioMute)              , spawn $ "amixer -q set Master toggle && " ++ notifyVolume)
               ]
 
 myConfig = def { modMask = mod4Mask
