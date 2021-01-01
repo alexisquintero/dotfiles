@@ -45,7 +45,7 @@ __prompt_command() {
   [ $EXIT != 0 ] && EXIT_CODE='\[\e[0;31m\]' # Add red if exit code non 0
 
   PS1=""
-  __git_ps1 "${KHAKI}" "${BOLD}\u@\W ${EXIT_CODE}⬥${RESET} " "%s "
+  __git_ps1 "${KHAKI}${PS1_PRE}" "${BOLD}\u@\W${PS1_POST} ${EXIT_CODE}⬥${RESET} " "%s "
 
   [[ ${__new_wd:=$PWD} != $PWD ]] && ls -AF; __new_wd=$PWD # Calls `l` when changing directory
 }
