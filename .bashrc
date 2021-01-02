@@ -41,11 +41,14 @@ __prompt_command() {
   local BOLD='\[\e[1m\]'
   local RESET='\[\e[0m\]'
   local EXIT_CODE=''
+  local NIX_SHELL_PROMPT=''
 
   [ $EXIT != 0 ] && EXIT_CODE='\[\e[0;31m\]' # Add red if exit code non 0
 
+  [ -n "$IN_NIX_SHELL" ] && NIX_SHELL_PROMPT='N\ '
+
   PS1=""
-  __git_ps1 "${KHAKI}${PS1_PRE}" "${BOLD}\u@\W${PS1_POST} ${EXIT_CODE}⬥${RESET} " "%s "
+  __git_ps1 "${KHAKI}${PS1_PRE}${NIX_SHELL_PROMPT}" "${BOLD}\u@\W${PS1_POST} ${EXIT_CODE}⬥${RESET} " "%s "
 
   [[ ${__new_wd:=$PWD} != $PWD ]] && ls -AF; __new_wd=$PWD # Calls `l` when changing directory
 }

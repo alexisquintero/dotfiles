@@ -32,6 +32,8 @@ keyMappings = [ ((mod4Mask, xK_y)                   , spawn "xscreensaver-comman
               , ((0, xF86XK_TouchpadToggle)         , spawn "toggle-touchpad")
               , ((0, xF86XK_MonBrightnessDown)      , spawn "light -U 10")
               , ((0, xF86XK_MonBrightnessUp)        , spawn "light -A 10")
+              , ((0, xF86XK_KbdBrightnessDown)      , spawn "light -s sysfs/leds/asus::kbd_backlight -U 50")
+              , ((0, xF86XK_KbdBrightnessUp)        , spawn "light -s sysfs/leds/asus::kbd_backlight -A 50")
               , ((0, xF86XK_AudioLowerVolume)       , spawn $ "amixer -q set Master 5%- unmute && " ++ notifyVolume)
               , ((0, xF86XK_AudioRaiseVolume)       , spawn $ "amixer -q set Master 5%+ unmute && " ++ notifyVolume)
               , ((0, xF86XK_AudioMute)              , spawn $ "amixer -q set Master toggle && " ++ notifyVolume)
