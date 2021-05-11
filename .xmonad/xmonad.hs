@@ -7,8 +7,6 @@ import XMonad.Util.EZConfig(additionalKeys)
 import Graphics.X11.ExtraTypes.XF86
 import System.IO
 
-myDmenu = "dmenu_run -nf '#F6D6BD' -nb '#20394F' -sb '#4E495F' -sf '#c3a38a'"
-
 with = (" && " ++)
 
 notifyVolume = "notify-send $(amixer sget Master | grep -oP \"\\[\\d{1,3}%\\] \\[\\w{2,3}\\]\" | head -n1)"
@@ -18,7 +16,6 @@ notifyPlayer = "sleep 0.5; notify-send $(playerctl status)"
 keyMappings = [ ((mod4Mask, xK_y)                   , spawn "xscreensaver-command -lock")
               , ((controlMask, xK_Print)            , spawn "sleep 0.2; scrot -s")
               , ((0, xK_Print)                      , spawn "scrot")
-              , ((mod4Mask, xK_d)                   , spawn myDmenu)
               , ((mod4Mask, xK_n)                   , moveTo Next NonEmptyWS)
               , ((mod4Mask, xK_p)                   , moveTo Prev NonEmptyWS)
               , ((mod4Mask, xK_q)                   , toggleWS)
