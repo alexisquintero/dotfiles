@@ -21,7 +21,6 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+v split h
 bindsym $mod+a focus parent
 bindsym $mod+c exec google-chrome
-bindsym $mod+d exec "dmenu_run -nf '#F6D6BD' -nb '#20394F' -sb '#4E495F' -sf '#c3a38a'"
 bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen toggle
 bindsym $mod+h focus left
