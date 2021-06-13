@@ -3,7 +3,7 @@
 ## Images
 
 ### Vertical split with 2 terminals on the left
-![main](https://gist.githubusercontent.com/alexisquintero/a246066a7fdc3f938f5b72fd6653ebe4/raw/5b09839358433b6a1950c2e70fec84f1e614e476/desktop.png)
+![main](https://gist.githubusercontent.com/alexisquintero/a246066a7fdc3f938f5b72fd6653ebe4/raw/55d8d9ad8912e082e4fb63b59c9fcb3566a95a2d/desktop.png)
 
 ### GTK
 ![thunar](https://gist.githubusercontent.com/alexisquintero/a246066a7fdc3f938f5b72fd6653ebe4/raw/5b09839358433b6a1950c2e70fec84f1e614e476/gtk.png)
