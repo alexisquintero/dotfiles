@@ -7,12 +7,6 @@ import XMonad.Util.EZConfig(additionalKeys)
 import Graphics.X11.ExtraTypes.XF86
 import System.IO
 
-with = (" && " ++)
-
-notifyVolume = "notify-send $(amixer sget Master | grep -oP \"\\[\\d{1,3}%\\] \\[\\w{2,3}\\]\" | head -n1)"
-
-notifyPlayer = "sleep 0.5; notify-send $(playerctl status)"
-
 keyMappings = [ ((mod4Mask, xK_y)                   , spawn "xscreensaver-command -lock")
               , ((controlMask, xK_Print)            , spawn "sleep 0.2; scrot -s")
               , ((0, xK_Print)                      , spawn "scrot")
@@ -35,10 +29,10 @@ keyMappings = [ ((mod4Mask, xK_y)                   , spawn "xscreensaver-comman
               , ((0, xF86XK_MonBrightnessUp)        , spawn "light -A 10")
               , ((0, xF86XK_KbdBrightnessDown)      , spawn "light -s sysfs/leds/asus::kbd_backlight -U 50")
               , ((0, xF86XK_KbdBrightnessUp)        , spawn "light -s sysfs/leds/asus::kbd_backlight -A 50")
-              , ((0, xF86XK_AudioLowerVolume)       , spawn $ "amixer -q set Master 5%- unmute" ++ with notifyVolume)
-              , ((0, xF86XK_AudioRaiseVolume)       , spawn $ "amixer -q set Master 5%+ unmute" ++ with notifyVolume)
-              , ((0, xF86XK_AudioMute)              , spawn $ "amixer -q set Master toggle" ++ with notifyVolume)
-              , ((0, xF86XK_AudioPlay)              , spawn $ "playerctl play-pause" ++ with notifyPlayer)
+              , ((0, xF86XK_AudioLowerVolume)       , spawn $ "amixer set Master 5%- && volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | head -1)")
+              , ((0, xF86XK_AudioRaiseVolume)       , spawn $ "amixer set Master 5%+ && volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | head -1)")
+              , ((0, xF86XK_AudioMute)              , spawn $ "amixer set Master toggle && if amixer get Master | grep -Fq '[off]'; then volnoti-show -m; else volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | head -1); fi")
+              , ((0, xF86XK_AudioPlay)              , spawn $ "playerctl play-pause")
               , ((0, xF86XK_AudioPrev)              , spawn $ "playerctl previous")
               , ((0, xF86XK_AudioNext)              , spawn $ "playerctl next")
               ]
