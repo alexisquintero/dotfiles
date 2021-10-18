@@ -1,6 +1,6 @@
 default_border pixel 0
 
-exec "setxkbmap -layout us -variant altgr-intl"
+exec "setxkbmap -layout us -variant altgr-intl -option ctrl:nocaps"
 
 set $mod Mod4
 
