@@ -1,0 +1,22 @@
+name: xmonad-alexis
+version: 0.1.0
+synopsis: xmonad setting
+github: alexis/.xmonad
+author: alexis
+maintainer: <youremail>@example.com
+copyright: © alexis
+license: MIT
+dependencies:
+  - X11
+  - base
+  - xmonad
+  - xmonad-contrib
+executables:
+  xmonad:
+    main: xmonad.hs
+    # ghc-options:
+    #   - -Wall
+    #   - -fwarn-tabs
+    #   - -threaded
+    #   - -O2
+    #   - -with-rtsopts=-N4

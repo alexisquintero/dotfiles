@@ -1,0 +1,15 @@
+resolver: lts-18.21
+
+packages:
+- .
+
+nix:
+  packages:
+    - zlib
+    - xorg.libX11
+    - xorg.libXrandr
+    - xorg.libXScrnSaver
+    - xorg.libXext
+    - pkg-config
+    - xorg.libXft
+    - xorg.libXrender
