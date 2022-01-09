@@ -102,7 +102,7 @@ myConfig =
       focusFollowsMouse = False,
       borderWidth = 0,
       workspaces = map show [1 .. 12],
-      logHook = dynamicLogString defaultPP >>= xmonadPropLog
+      logHook = dynamicLogString def >>= xmonadPropLog
     }
     `additionalKeys` keyMappings
 

@@ -7,19 +7,31 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
        , textOffset = -1
        , iconOffset = -1
        , lowerOnStart = True
-       , pickBroadest = False
+       , pickBroadest = True
        , persistent = False
        , hideOnStart = False
        , allDesktops = True
-       , commands = [ Run DynNetwork ["-L","0","-H","32"] 10
-                    , Run Cpu ["-L","3","-H","50"] 10
-                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+       , commands = [ Run DynNetwork [ "-L" , "0"
+				     , "-H" , "32"
+				     ] 10
+                    , Run Cpu [ "-L" , "3"
+			      , "-H" , "50"
+			      ] 10
+                    , Run Memory [ "-t" , "Mem: <usedratio>%" ] 10
                     , Run Swap [] 10
-                    , Run Com "uname" ["-s","-r"] "" 36000
                     , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
-                    , Run Battery [] 50
+                    , Run Battery [ "--High", "60"
+		         	  , "--Low", "20"
+		         	  , "--low", "red"
+		         	  , "--high", "red"
+		         	  , "--"
+		         	  , "-o"  , "<left>% (<timeleft>)"
+		         	  ] 50
                     , Run StdinReader
+		    , Run Volume "default" "Master" [ "--"
+						    , "--onc", "#f6d6bd"
+						    ] 10
                     ]
        , alignSep = "}{"
-       , template = " %StdinReader% }{ %battery% | %cpu% | %memory% * %swap% | %dynnetwork% | %date% "
+       , template = " %StdinReader% }{ %battery% | %cpu% | %memory% * %swap% | %dynnetwork% | %default:Master% | %date% "
        }
