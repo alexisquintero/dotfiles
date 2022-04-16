@@ -3,8 +3,7 @@ import Graphics.X11.ExtraTypes.XF86
 import XMonad
 import XMonad.Actions.CycleWS (Direction1D (Next, Prev), WSType (EmptyWS, NonEmptyWS), moveTo, toggleWS)
 import XMonad.Hooks.DynamicLog
-  ( defaultPP,
-    dynamicLogString,
+  ( dynamicLogString,
     xmobar,
     xmonadPropLog,
   )
