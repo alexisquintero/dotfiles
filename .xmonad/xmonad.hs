@@ -7,6 +7,7 @@ import XMonad.Hooks.DynamicLog
     xmobar,
     xmonadPropLog,
   )
+import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
 import XMonad.Hooks.ManageDocks
   ( Direction1D (Next, Prev),
     ToggleStruts (ToggleStruts),
@@ -105,4 +106,4 @@ myConfig =
     }
     `additionalKeys` keyMappings
 
-main = xmonad =<< xmobar myConfig
+main = xmonad . ewmhFullscreen . ewmh =<< xmobar myConfig
