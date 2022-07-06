@@ -63,7 +63,7 @@ keyMappings =
     ++ ( B.bimap withMod spawn
            <$> [ (xK_x, "firefox"),
                  (xK_c, "google-chrome-stable"),
-                 (xK_y, "xscreensaver-command -lock")
+                 (xK_y, "i3lock -c 000000 ;xset dpms force off")
                ]
        )
     ++ ( B.bimap withControl spawn
