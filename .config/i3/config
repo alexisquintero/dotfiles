@@ -8,8 +8,9 @@ font pango:DejaVu Sans Mono 8
 
 floating_modifier $mod
 
-bindsym $mod+Return exec st
-bindsym Print exec --no-startup-id "gnome-screenshot -a -i"
+bindsym $mod+Return exec kitty
+bindsym Print exec "scrot"
+bindsym Ctrl+Print exec "sleep 0.2; scrot -s"
 
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
@@ -20,7 +21,7 @@ bindsym $mod+Shift+semicolon move scratchpad
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+v split h
 bindsym $mod+a focus parent
-bindsym $mod+c exec google-chrome
+bindsym $mod+c exec google-chrome-stable
 bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen toggle
 bindsym $mod+h focus left
@@ -43,8 +44,6 @@ bindsym $mod+x exec firefox
 bindsym $mod+y exec "i3lock -c 000000 ;xset dpms force off"
 bindsym $mod+z exec slack
 
-
-bindsym $mod+F8 exec "~/Documents/private/clojureTerminals"
 bindsym $mod+F12 exec "amixer set Headphone playback 50% unmute"
 
 set $ws1 "1"

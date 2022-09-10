@@ -98,7 +98,7 @@ keyMappings =
 myConfig =
   def
     { modMask = modKey,
-      terminal = "st",
+      terminal = "kitty",
       focusFollowsMouse = False,
       borderWidth = 0,
       workspaces = map show [1 .. 12],
