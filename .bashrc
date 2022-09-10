@@ -68,13 +68,7 @@ fi
 alias v=nvim
 alias g='git'
 alias o=xdg-open
-[ -f /usr/share/bash-completion/completions/git ] && source /usr/share/bash-completion/completions/git
 __git_complete g _git_main
 [ -f ~/Documents/private/.alias ] && source ~/Documents/private/.alias
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
