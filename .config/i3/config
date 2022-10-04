@@ -1,4 +1,5 @@
 default_border pixel 0
+font pango:DejaVu Sans Mono 8
 
 exec "setxkbmap -layout us -variant altgr-intl -option ctrl:nocaps"
 
@@ -114,6 +115,7 @@ bindsym XF86AudioPrev exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer
 bindsym XF86AudioNext exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
 
 bar {
+  font pango:DejaVu Sans Mono 8
   mode hide
   #palette https://lospec.com/palette-list/nyx8
   colors {
@@ -128,8 +130,6 @@ bar {
   }
   status_command i3status
 }
-
-font pango:DejaVu Sans Mono 8
 
 # class                 border  backgr. text    indicator child_border  #  custom colors table
 client.focused          #4e495f #4e495f #c3a38a #2e9ef4   #4e495f       # | x | x | x |   | x |
