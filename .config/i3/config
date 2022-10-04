@@ -4,8 +4,6 @@ exec "setxkbmap -layout us -variant altgr-intl -option ctrl:nocaps"
 
 set $mod Mod4
 
-font pango:DejaVu Sans Mono 8
-
 floating_modifier $mod
 
 bindsym $mod+Return exec i3-sensible-terminal
@@ -130,6 +128,8 @@ bar {
   }
   status_command i3status
 }
+
+font pango:DejaVu Sans Mono 8
 
 # class                 border  backgr. text    indicator child_border  #  custom colors table
 client.focused          #4e495f #4e495f #c3a38a #2e9ef4   #4e495f       # | x | x | x |   | x |
