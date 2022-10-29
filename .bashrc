@@ -69,6 +69,3 @@ alias v=nvim
 alias g='git'
 alias o=xdg-open
 __git_complete g _git_main
-[ -f ~/Documents/private/.alias ] && source ~/Documents/private/.alias
-
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
