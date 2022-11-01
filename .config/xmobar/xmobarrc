@@ -1,11 +1,11 @@
-Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+Config { font = "DejaVu Sans Mono 9"
        , additionalFonts = []
        , bgColor = "#0f2a3f"
        , fgColor = "#f6d6bd"
        , alpha = 255
        , position = Top
-       , textOffset = -1
-       , iconOffset = -1
+       , textOffset = 0
+       , iconOffset = 0
        , lowerOnStart = True
        , pickBroadest = True
        , persistent = False
