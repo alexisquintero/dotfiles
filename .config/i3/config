@@ -27,10 +27,10 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
-bindsym $mod+Shift+h move container to output left
-bindsym $mod+Shift+j move container to output down
-bindsym $mod+Shift+k move container to output up
-bindsym $mod+Shift+l move container to output right
+bindsym $mod+Shift+a move container to output left
+bindsym $mod+Shift+s move container to output down
+bindsym $mod+Shift+w move container to output up
+bindsym $mod+Shift+d move container to output right
 bindsym $mod+n workspace next
 bindsym $mod+m exec spotify
 bindsym $mod+o exec "~/.config/utils/i3nextEmptyWs.py"
