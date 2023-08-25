@@ -7,7 +7,7 @@ set $mod Mod4
 
 floating_modifier $mod
 
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty
 bindsym Print exec "scrot"
 bindsym Ctrl+Print exec "sleep 0.2; scrot -s"
 
@@ -108,9 +108,9 @@ mode "resize" {
 focus_follows_mouse no
 
 #Home
-bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer set Master 5%+ && volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | head -1)"
-bindsym XF86AudioLowerVolume exec --no-startup-id "amixer set Master 5%- && volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | head -1)"
-bindsym XF86AudioMute exec "amixer set Master toggle && if amixer get Master | grep -Fq '[off]'; then volnoti-show -m; else volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | head -1); fi"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pulsemixer --change-volume +5 && volnoti-show $(pulsemixer --get-volume | awk '{print $1}')"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pulsemixer --change-volume -5 && volnoti-show $(pulsemixer --get-volume | awk '{print $1}')"
+bindsym XF86AudioMute exec "pulsemixer --toggle-mute && if (( $(pulsemixer --get-mute) )); then volnoti-show -m; else volnoti-show $(pulsemixer --get-volume | awk '{print $1}'); fi"
 
 bindsym XF86AudioPlay exec "playerctl play-pause"
 bindsym XF86AudioStop exec "playerctl stop"

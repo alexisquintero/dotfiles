@@ -30,14 +30,14 @@ withoutMod k = (0, k)
 withControl :: KeySym -> (KeyMask, KeySym)
 withControl k = (controlMask, k)
 
-volumeNotification = "$(amixer get Master | grep -Po '[0-9]+(?=%)' | head -1)"
+volumeNotification = "$(pulsemixer --get-volume | awk '{print $1}')"
 
 volumeToggle =
-  "amixer set Master toggle && amixer get Master | grep -Fq '[off]' && volnoti-show -m || volnoti-show " <> volumeNotification
+  "pulsemixer --toggle-mute && if (( $(pulsemixer --get-mute) )); then volnoti-show -m; else volnoti-show " <> volumeNotification <> "; fi"
 
 volumeChange :: Char -> String
 volumeChange sign =
-  "amixer set Master 5%" <> [sign] <> " && volnoti-show " <> volumeNotification
+  "pulsemixer --change-volume " <> [sign] <> "5 && volnoti-show " <> volumeNotification
 
 mediaKeysApp = "playerctl"
 
