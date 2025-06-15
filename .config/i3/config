@@ -8,8 +8,6 @@ set $mod Mod4
 floating_modifier $mod
 
 bindsym $mod+Return exec kitty
-bindsym Print exec "scrot"
-bindsym Ctrl+Print exec "sleep 0.2; scrot -s"
 
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
@@ -20,7 +18,6 @@ bindsym $mod+Shift+semicolon move scratchpad
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+v split h
 bindsym $mod+a focus parent
-bindsym $mod+c exec google-chrome-stable
 bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen toggle
 bindsym $mod+h focus left
@@ -43,9 +40,6 @@ bindsym $mod+slash sticky toggle
 bindsym $mod+space focus mode_toggle
 bindsym $mod+v split v
 bindsym $mod+w layout tabbed
-bindsym $mod+x exec firefox
-bindsym $mod+y exec "i3lock -c 000000 ;xset dpms force off"
-bindsym $mod+z exec slack
 
 bindsym $mod+F12 exec "amixer set Headphone playback 50% unmute"
 
@@ -106,19 +100,6 @@ mode "resize" {
 }
 
 focus_follows_mouse no
-
-#Home
-bindsym XF86AudioRaiseVolume exec --no-startup-id "pulsemixer --change-volume +5 && volnoti-show $(pulsemixer --get-volume | awk '{print $1}')"
-bindsym XF86AudioLowerVolume exec --no-startup-id "pulsemixer --change-volume -5 && volnoti-show $(pulsemixer --get-volume | awk '{print $1}')"
-bindsym XF86AudioMute exec "pulsemixer --toggle-mute && if (( $(pulsemixer --get-mute) )); then volnoti-show -m; else volnoti-show $(pulsemixer --get-volume | awk '{print $1}'); fi"
-
-bindsym XF86AudioPlay exec "playerctl play-pause"
-bindsym XF86AudioStop exec "playerctl stop"
-bindsym XF86AudioPrev exec "playerctl previous"
-bindsym XF86AudioNext exec "playerctl next"
-
-bindsym XF86MonBrightnessUp exec --no-startup-id light -A 10
-bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
 
 bar {
   font pango:DejaVu Sans Mono 8
