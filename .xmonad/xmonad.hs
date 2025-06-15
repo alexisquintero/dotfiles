@@ -32,15 +32,6 @@ withControl k = (controlMask, k)
 
 volumeNotification = "$(pulsemixer --get-volume | awk '{print $1}')"
 
-volumeToggle =
-  "pulsemixer --toggle-mute && if (( $(pulsemixer --get-mute) )); then volnoti-show -m; else volnoti-show " <> volumeNotification <> "; fi"
-
-volumeChange :: Char -> String
-volumeChange sign =
-  "pulsemixer --change-volume " <> [sign] <> "5 && volnoti-show " <> volumeNotification
-
-mediaKeysApp = "playerctl"
-
 keyMappings :: [((KeyMask, KeySym), X ())]
 keyMappings =
   ( B.first withMod
@@ -60,38 +51,10 @@ keyMappings =
                  (xK_minus, W.greedyView "11")
                ]
        )
-    ++ ( B.bimap withMod spawn
-           <$> [ (xK_x, "firefox"),
-                 (xK_c, "google-chrome-stable"),
-                 (xK_y, "i3lock -c 000000 ;xset dpms force off")
-               ]
-       )
-    ++ ( B.bimap withControl spawn
-           <$> [ (xK_Print, "sleep 0.2; scrot -s")
-               ]
-       )
     ++ ( B.bimap withShiftMod windows
            <$> [ (xK_0, W.shift "10"),
                  (xK_equal, W.shift "12"),
                  (xK_minus, W.shift "11")
-               ]
-       )
-    ++ ( B.bimap withoutMod spawn
-           <$> [ (xF86XK_TouchpadToggle, "toggle-touchpad"),
-                 (xF86XK_AudioMute, volumeToggle),
-                 (xK_Print, "scrot"),
-                 (xF86XK_MonBrightnessDown, "light -U 10"),
-                 (xF86XK_KbdBrightnessDown, "light -s sysfs/leds/asus::kbd_backlight -U 50"),
-                 (xF86XK_MonBrightnessUp, "light -A 10"),
-                 (xF86XK_KbdBrightnessUp, "light -s sysfs/leds/asus::kbd_backlight -A 50"),
-                 (xF86XK_AudioLowerVolume, volumeChange '-'),
-                 (xF86XK_AudioRaiseVolume, volumeChange '+')
-               ]
-       )
-    ++ ( B.bimap withoutMod (spawn . (mediaKeysApp <>))
-           <$> [ (xF86XK_AudioPlay, " play-pause"),
-                 (xF86XK_AudioPrev, " previous"),
-                 (xF86XK_AudioNext, " next")
                ]
        )
 
