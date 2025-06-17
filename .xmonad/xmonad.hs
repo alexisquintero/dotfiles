@@ -1,5 +1,4 @@
 import Data.Bifunctor as B
-import Graphics.X11.ExtraTypes.XF86
 import XMonad
 import XMonad.Actions.CycleWS (Direction1D (Next, Prev), WSType (EmptyWS, NonEmptyWS), moveTo, toggleWS)
 import XMonad.Hooks.DynamicLog
@@ -23,14 +22,6 @@ withMod k = (modKey, k)
 
 withShiftMod :: KeySym -> (KeyMask, KeySym)
 withShiftMod k = (modKey .|. shiftMask, k)
-
-withoutMod :: KeySym -> (KeyMask, KeySym)
-withoutMod k = (0, k)
-
-withControl :: KeySym -> (KeyMask, KeySym)
-withControl k = (controlMask, k)
-
-volumeNotification = "$(pulsemixer --get-volume | awk '{print $1}')"
 
 keyMappings :: [((KeyMask, KeySym), X ())]
 keyMappings =
