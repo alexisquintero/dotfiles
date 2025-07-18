@@ -4,8 +4,8 @@
 set -o vi
 
 HISTCONTROL=ignoredups              # don't put duplicate lines
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=100000
+HISTFILESIZE=10000000
 
 stty -ixon                          # Disable ctrl-s and ctrl-q.
 shopt -s autocd                     # Allows you to cd into directory merely by typing the directory name.
